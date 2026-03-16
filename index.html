@@ -572,7 +572,37 @@
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  /* ── LUCIDE ICONS ───────────────────────────────────── */
+  .feature-icon i, .feature-icon svg {
+    width: 20px; height: 20px;
+    stroke: var(--accent2);
+    stroke-width: 1.75;
+  }
+
+  .course-meta-item i, .course-meta-item svg {
+    width: 13px; height: 13px;
+    stroke: var(--muted);
+    stroke-width: 2;
+    flex-shrink: 0;
+  }
+
+  .course-icon i, .course-icon svg {
+    width: 22px; height: 22px;
+    stroke-width: 1.75;
+  }
+
+  .course-icon.js i, .course-icon.js svg { stroke: var(--accent3); }
+  .course-icon.ts i, .course-icon.ts svg { stroke: var(--accent2); }
+  .course-icon.re i, .course-icon.re svg { stroke: var(--accent); }
+
+  .nav-cta i, .nav-cta svg {
+    width: 14px; height: 14px;
+    stroke: #fff;
+    stroke-width: 2;
+  }
 </style>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
 
@@ -590,10 +620,6 @@
   <div class="hero-glow"></div>
   <div class="hero-glow2"></div>
 
-  <div class="hero-tag">
-    <span class="dot"></span>
-    Free &amp; Open · No Login Required
-  </div>
 
   <h1>Anyone Can<br><span class="grad">Teach JavaScript.</span></h1>
 
@@ -628,22 +654,22 @@
 <section class="features">
   <div class="features-grid">
     <div class="feature-item">
-      <div class="feature-icon">⚡</div>
+      <div class="feature-icon"><i data-lucide="zap"></i></div>
       <div class="feature-title">Zero Setup</div>
       <div class="feature-desc">Just open a guide in your browser and start. No installs, no accounts.</div>
     </div>
     <div class="feature-item">
-      <div class="feature-icon">🎯</div>
+      <div class="feature-icon"><i data-lucide="graduation-cap"></i></div>
       <div class="feature-title">Teacher-First</div>
       <div class="feature-desc">Every guide is written from the teacher's perspective with tips and timing.</div>
     </div>
     <div class="feature-item">
-      <div class="feature-icon">🔐</div>
+      <div class="feature-icon"><i data-lucide="eye-off"></i></div>
       <div class="feature-title">Hidden Solutions</div>
       <div class="feature-desc">Exercises have solutions hidden by default — reveal them when needed.</div>
     </div>
     <div class="feature-item">
-      <div class="feature-icon">📋</div>
+      <div class="feature-icon"><i data-lucide="clipboard-copy"></i></div>
       <div class="feature-title">Copy-Ready Code</div>
       <div class="feature-desc">Every code block has a one-click copy button for seamless flow.</div>
     </div>
@@ -662,15 +688,15 @@
     <!-- LIVE COURSE -->
     <a class="course-card" href="js-fundamentals.html">
       <div class="course-card-top">
-        <div class="course-icon js">📜</div>
-        <span class="course-badge badge-live">✦ Live</span>
+        <div class="course-icon js"><i data-lucide="file-code-2"></i></div>
+        <span class="course-badge badge-live">Live</span>
       </div>
       <div class="course-title">JavaScript Fundamentals</div>
       <div class="course-desc">From variables to Rock Paper Scissors. A complete first session guide for absolute beginners.</div>
       <div class="course-meta">
-        <div class="course-meta-item">⏱ ~3 hours</div>
-        <div class="course-meta-item">📝 52 exercises</div>
-        <div class="course-meta-item">📚 8 topics</div>
+        <div class="course-meta-item"><i data-lucide="clock"></i> ~3 hours</div>
+        <div class="course-meta-item"><i data-lucide="pencil-line"></i> 52 exercises</div>
+        <div class="course-meta-item"><i data-lucide="layers"></i> 8 topics</div>
       </div>
       <div class="course-cta">Start Teaching →</div>
     </a>
@@ -678,28 +704,28 @@
     <!-- COMING SOON -->
     <div class="course-card coming-soon">
       <div class="course-card-top">
-        <div class="course-icon ts">🔷</div>
+        <div class="course-icon ts"><i data-lucide="brackets"></i></div>
         <span class="course-badge badge-soon">Coming Soon</span>
       </div>
       <div class="course-title">JS Intermediate</div>
       <div class="course-desc">Functions, arrays, loops, and DOM manipulation — the next session.</div>
       <div class="course-meta">
-        <div class="course-meta-item">⏱ ~3 hours</div>
-        <div class="course-meta-item">📝 40+ exercises</div>
+        <div class="course-meta-item"><i data-lucide="clock"></i> ~3 hours</div>
+        <div class="course-meta-item"><i data-lucide="pencil-line"></i> 40+ exercises</div>
       </div>
       <div class="course-cta" style="color:var(--muted)">Coming Soon</div>
     </div>
 
     <div class="course-card coming-soon">
       <div class="course-card-top">
-        <div class="course-icon re">⚛️</div>
+        <div class="course-icon re"><i data-lucide="atom"></i></div>
         <span class="course-badge badge-soon">Coming Soon</span>
       </div>
       <div class="course-title">Intro to React</div>
       <div class="course-desc">Components, props, state, and your first real React app — taught from scratch.</div>
       <div class="course-meta">
-        <div class="course-meta-item">⏱ ~4 hours</div>
-        <div class="course-meta-item">📝 50+ exercises</div>
+        <div class="course-meta-item"><i data-lucide="clock"></i> ~4 hours</div>
+        <div class="course-meta-item"><i data-lucide="pencil-line"></i> 50+ exercises</div>
       </div>
       <div class="course-cta" style="color:var(--muted)">Coming Soon</div>
     </div>
@@ -755,5 +781,6 @@
   <div class="footer-right">Free forever · No login required</div>
 </footer>
 
+<script>lucide.createIcons();</script>
 </body>
 </html>
