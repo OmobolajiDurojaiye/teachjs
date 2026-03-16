@@ -5,7 +5,197 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JS Fundamentals · Teacher's Guide</title>
   <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    /* Extra tag styles not in main.css */
+    .tag-extreme {
+      background: rgba(124,111,247,0.15);
+      color: #a99ff7;
+    }
+    .concept-mini {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent3);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    .concept-mini strong { color: var(--accent3); }
+    .analogy {
+      background: rgba(94,231,176,0.05);
+      border: 1px solid rgba(94,231,176,0.15);
+      border-left: 3px solid var(--accent2);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+    .analogy strong { color: var(--accent2); }
+    .analogy .emoji { font-size: 18px; margin-right: 6px; }
+    .timing-bar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .timing-pill {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .timing-pill.concept-pill { background: rgba(124,111,247,0.12); color: var(--accent); }
+    .timing-pill.exercise-pill { background: rgba(245,166,35,0.12); color: var(--accent3); }
+    .timing-pill.total-pill { background: rgba(94,231,176,0.12); color: var(--accent2); }
+    .dos-donts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .dos, .donts {
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 13px;
+    }
+    .dos { background: rgba(94,231,176,0.07); border: 1px solid rgba(94,231,176,0.15); }
+    .donts { background: rgba(240,96,128,0.06); border: 1px solid rgba(240,96,128,0.15); }
+    .dos .label { color: var(--accent2); font-weight: 700; margin-bottom: 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .donts .label { color: var(--accent4); font-weight: 700; margin-bottom: 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .dos li, .donts li { margin-left: 16px; margin-bottom: 4px; color: var(--muted); }
+    .section-progress {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 24px;
+    }
+    .section-progress-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--border2);
+    }
+    .section-progress-dot.done { background: var(--accent2); }
+    .section-progress-dot.active { background: var(--accent); }
+    .runner-output-line { padding: 2px 0; color: var(--text); }
+    .runner-output-line.error { color: var(--accent4); }
+    .runner-output-line.info { color: var(--muted); font-style: italic; }
+    .concept code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255,255,255,0.07);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--accent2);
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+      font-size: 13.5px;
+    }
+    .compare-table th {
+      background: var(--bg3);
+      padding: 10px 14px;
+      text-align: left;
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      border-bottom: 1px solid var(--border2);
+    }
+    .compare-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .compare-table td code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255,255,255,0.07);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--accent2);
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tbody tr:hover td { background: rgba(255,255,255,0.02); }
+    .falsy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .falsy-item {
+      background: rgba(240,96,128,0.07);
+      border: 1px solid rgba(240,96,128,0.15);
+      border-radius: 8px;
+      padding: 10px 14px;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--accent4);
+    }
+    .falsy-item .fi-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+      font-style: italic;
+    }
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245,166,35,0.1);
+      border: 1px solid rgba(245,166,35,0.2);
+      color: var(--accent3);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .step-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .step-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 12px 16px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      background: rgba(124,111,247,0.12);
+      padding: 3px 8px;
+      border-radius: 5px;
+      flex-shrink: 0;
+    }
+    .step-text {
+      font-size: 14px;
+      color: var(--text);
+    }
+    .step-text code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255,255,255,0.07);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--accent2);
+    }
+  </style>
 </head>
 <body>
 
@@ -39,11 +229,10 @@
   <header class="hero">
     <div class="hero-tag"><i data-lucide="zap"></i> 3-hour session</div>
     <h1>Teaching <span>JavaScript</span> From Scratch</h1>
-    <p>A complete teacher's guide with definitions, code examples, exercises graded from easy to hard, and projects. Built for a 1-on-1 session in VS Code.</p>
-    
+    <p>A complete teacher's guide for 1-on-1 sessions. Use VS Code + Chrome Console. Teach the concept, show the code, then let her try.</p>
     <div class="hero-meta">
       <div class="hero-meta-item"><span class="dot"></span> 8 Topics</div>
-      <div class="hero-meta-item"><span class="dot" style="background:var(--accent3)"></span> 60+ Exercises</div>
+      <div class="hero-meta-item"><span class="dot" style="background:var(--accent3)"></span> 70+ Exercises</div>
       <div class="hero-meta-item"><span class="dot" style="background:var(--accent)"></span> 1 Final Project</div>
       <div class="hero-meta-item"><span class="dot" style="background:var(--accent4)"></span> Rock Paper Scissors Build</div>
     </div>
@@ -56,22 +245,51 @@
       <div class="section-header">
         <span class="section-num">00</span>
         <span class="section-title">How To Use This Guide</span>
-        <span class="section-time"><i data-lucide="award"></i> Intro</span>
+        <span class="section-time"><i data-lucide="award"></i> Read first</span>
       </div>
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> You lead each section. Explain the concept in your own words first, then type the example code live in VS Code, and let your student guess/predict what will happen before running it. That's where learning clicks.</span>
+        <span><strong>👨‍🏫 You are the teacher.</strong> Lead each section. Explain the concept in your own words first — use the analogies here. Then type the code live in VS Code. Ask her to guess the output <em>before</em> you run it. That moment of prediction → verification is where learning really clicks.</span>
       </div>
 
       <div class="concept">
-        <div class="concept-title">Session Flow</div>
-        <p>For each section: <strong>1)</strong> Explain the concept casually (use analogies). <strong>2)</strong> Show the code example. <strong>3)</strong> Do the easy exercises together. <strong>4)</strong> Let your student attempt medium exercises solo. <strong>5)</strong> Do hard exercises as a team challenge.</p>
+        <div class="concept-title">Session Flow — Do This For Every Section</div>
+        <p><strong>1.</strong> Explain the concept casually using the analogy provided. Don't just read — talk to her.<br>
+        <strong>2.</strong> Open VS Code, type the code example together. Let her watch.<br>
+        <strong>3.</strong> Run it in the console (F12). Ask: "what do you think this will print?"<br>
+        <strong>4.</strong> Do the Easy exercises together, out loud.<br>
+        <strong>5.</strong> Medium exercises — she tries, you watch. Help only if she's stuck for 2+ minutes.<br>
+        <strong>6.</strong> Hard exercises — team effort. Discuss, think together, build it.</p>
       </div>
 
       <div class="callout">
         <i data-lucide="terminal"></i>
-        <span><strong>Setup:</strong> Open VS Code, create a new file called <code>lesson.html</code>, and use the template: <code>&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;body&gt; &lt;script&gt; // code here &lt;/script&gt; &lt;/body&gt; &lt;/html&gt;</code>. Open it in Chrome and use <strong>F12</strong> to open the Console.</span>
+        <span><strong>Setup (do this first!):</strong> Open VS Code. Create a file called <code>lesson.js</code>. Open the Terminal in VS Code (Ctrl+`) and type <code>node lesson.js</code> to run it — <em>OR</em> create a <code>lesson.html</code> file, open it in Chrome, and press F12 to open the Console. Either works. The HTML approach lets you use <code>alert()</code> and buttons too.</span>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">lesson.html Starter Template</div>
+        <p>Copy this into VS Code at the start of the session and leave it open all day:</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><span class="code-label">lesson.html — Starter Template</span><span class="code-lang">HTML</span></div>
+        <pre><span class="cm">&lt;!-- lesson.html — paste this, keep it open all session --&gt;</span>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;script&gt;
+    <span class="cm">// Write your code here</span>
+    <span class="log">console</span>.<span class="fn">log</span>(<span class="str">'Ready to learn!'</span>);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">Difficulty Tags</div>
+        <p><span class="tag tag-easy">Easy</span> — Do together out loud &nbsp; <span class="tag tag-medium">Medium</span> — She tries solo &nbsp; <span class="tag tag-hard">Hard</span> — Team effort &nbsp; <span class="tag tag-extreme">Extreme</span> — Bonus / come back later</p>
       </div>
     </div>
 
@@ -83,31 +301,61 @@
         <span class="section-time"><i data-lucide="clock"></i> ~20 min</span>
       </div>
 
+      <div class="timing-bar">
+        <span class="timing-pill concept-pill">~8 min concept</span>
+        <span class="timing-pill exercise-pill">~12 min exercises</span>
+      </div>
+
+      <div class="analogy">
+        <span class="emoji">🧠</span> <strong>The Analogy:</strong> A website has three layers. HTML is the skeleton — it gives structure. CSS is the clothes — it makes it look good. JavaScript is the <em>brain</em> — it makes things actually happen. Every button click, notification, form validation, live update — that's JavaScript thinking.
+      </div>
+
       <div class="concept">
         <div class="concept-title">What is JavaScript?</div>
-        <p>JavaScript is the language that makes websites <em>do things</em>. HTML is the skeleton, CSS is the clothes, JavaScript is the brain. Every button click, pop-up, live update — that's JavaScript.</p>
+        <p>JavaScript is a programming language that runs inside the browser. You write instructions, the browser follows them. The browser understands three languages: HTML (structure), CSS (style), and JavaScript (logic and behaviour).</p>
       </div>
 
       <div class="concept">
         <div class="concept-title">alert()</div>
-        <p>Shows a pop-up box in the browser. It's the simplest way to display a message. We'll use it a lot at the beginning, then move to <code>console.log</code> for more professional debugging.</p>
+        <p>The simplest way to display something. It pops open a box in the browser with a message. We'll use this at the start because it's very visible — but real developers use <code>console.log()</code> instead, because alerts are annoying to users.</p>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">console.log()</div>
+        <p>This prints a message to the browser's developer console. Open it by pressing <strong>F12</strong> and clicking the <strong>Console</strong> tab. Think of the console as a developer's secret window — users can't see it, but you can. You'll use this constantly while building things.</p>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">document.body.innerHTML</div>
+        <p>This changes the entire visible content of a web page. It's JavaScript talking to the HTML. You're reaching into the page and replacing what's there with new content. It's like a magic eraser and pen in one.</p>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">Syntax</div>
+        <p>Syntax is the grammar of a programming language. Just like English has rules (a sentence ends with a period), JavaScript has rules too. Most statements end with a semicolon <code>;</code>. Strings must be wrapped in quotes. Breaking the rules = the code doesn't run.</p>
       </div>
 
       <div class="code-block">
-        <div class="code-header"><span class="code-label">Example</span><span class="code-lang">JS</span></div>
-        <pre><span class="cm">// Shows a popup message</span>
+        <div class="code-header"><span class="code-label">Example — Your first JS</span><span class="code-lang">JS</span></div>
+        <pre><span class="cm">// Two forward slashes = a comment. JS ignores this line.</span>
+<span class="cm">// Comments are notes for humans, not the computer.</span>
+
+<span class="cm">// 1. A pop-up alert</span>
 <span class="fn">alert</span>(<span class="str">'Hello! Welcome to JavaScript.'</span>);
 
-<span class="cm">// Print to the browser console (F12 → Console)</span>
+<span class="cm">// 2. Print to the developer console (F12 → Console tab)</span>
 <span class="log">console</span>.<span class="fn">log</span>(<span class="str">'Hello from the console!'</span>);
 
-<span class="cm">// Change the entire page content</span>
-<span class="var">document</span>.<span class="var">body</span>.<span class="var">innerHTML</span> = <span class="str">'&lt;h1&gt;I changed the page!&lt;/h1&gt;'</span>;</pre>
+<span class="cm">// 3. Change the entire page content</span>
+<span class="var">document</span>.<span class="var">body</span>.<span class="var">innerHTML</span> = <span class="str">'&lt;h1&gt;I changed the page!&lt;/h1&gt;'</span>;
+
+<span class="cm">// 4. Math works directly</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="num">5</span> + <span class="num">3</span>);</pre>
       </div>
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> Type the alert first, save the file, refresh Chrome. Watch their reaction. Then show <code>console.log</code> — explain "the console is where developers read messages, it's like a secret window."</span>
+        <span><strong>👨‍🏫 Teacher:</strong> Type the <code>alert()</code> first, save the file, refresh Chrome. Watch her reaction. Then comment out the alert and show <code>console.log()</code>. Say: "The console is a developer's secret window — users never see this, it's only for us." Then show <code>document.body.innerHTML</code> — it's always impressive when the whole page changes with one line.</span>
       </div>
 
       <div class="exercises">
@@ -115,53 +363,74 @@
 
         <div class="exercise">
           <div class="exercise-num">01 · 01</div>
-          <div class="exercise-text">Write an <code>alert()</code> that shows your own name.</div>
+          <div class="exercise-text">Write an <code>alert()</code> that pops up and says your own name.</div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>alert('Your Name');</code></pre></div>
+          <div class="solution"><pre><code>alert('Ada');</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">01 · 02</div>
-          <div class="exercise-text">Use <code>console.log()</code> to print three different messages, each on its own line.</div>
+          <div class="exercise-text">Use <code>console.log()</code> to print three different sentences, each on its own line. Something about your day.</div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>console.log('Message 1');
-console.log('Message 2');
-console.log('Message 3');</code></pre></div>
+          <div class="solution"><pre><code>console.log('Today is a great day.');
+console.log('I am learning JavaScript.');
+console.log('This is fun!');</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">01 · 03</div>
-          <div class="exercise-text">Use <code>document.body.innerHTML</code> to replace the page content with a welcome message that includes a heading and a paragraph.</div>
-          <span class="tag tag-medium">Medium</span>
-          <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
-          <div class="hint">Try: <code>document.body.innerHTML = '&lt;h1&gt;Title&lt;/h1&gt;&lt;p&gt;Body&lt;/p&gt;'</code></div>
+          <div class="exercise-text">Use <code>console.log()</code> to print the result of <code>10 + 5</code>. What do you think it will show?</div>
+          <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>document.body.innerHTML = '&lt;h1&gt;Welcome!&lt;/h1&gt;&lt;p&gt;You can do it!&lt;/p&gt;';</code></pre></div>
+          <div class="solution"><pre><code>console.log(10 + 5); // 15</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">01 · 04</div>
-          <div class="exercise-text">Make a button in HTML with <code>onclick</code> that first logs "Button clicked!" to the console, then shows an alert saying "You clicked me!".</div>
+          <div class="exercise-text">Use <code>document.body.innerHTML</code> to replace the page with a welcome message that includes an <code>&lt;h1&gt;</code> heading and a <code>&lt;p&gt;</code> paragraph.</div>
           <span class="tag tag-medium">Medium</span>
           <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
-          <div class="hint"><code>&lt;button onclick="console.log('...'); alert('...')"&gt;Click&lt;/button&gt;</code></div>
+          <div class="hint">Try: <code>document.body.innerHTML = '&lt;h1&gt;Hello!&lt;/h1&gt;&lt;p&gt;I am a paragraph.&lt;/p&gt;'</code></div>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>&lt;button onclick="console.log('Button clicked!'); alert('You clicked me!');"&gt;Click&lt;/button&gt;</code></pre></div>
+          <div class="solution"><pre><code>document.body.innerHTML = '&lt;h1&gt;Welcome!&lt;/h1&gt;&lt;p&gt;JavaScript just changed this page.&lt;/p&gt;';</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">01 · 05</div>
-          <div class="exercise-text">Create two buttons — one that changes the page to show a red heading, and another that resets it back to the original content.</div>
+          <div class="exercise-text">Create a button in HTML with an <code>onclick</code> that first logs "Button clicked!" to the console, then shows an alert saying "You clicked me!".</div>
+          <span class="tag tag-medium">Medium</span>
+          <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
+          <div class="hint">Multiple statements in one onclick: <code>&lt;button onclick="console.log('...'); alert('...')"&gt;</code></div>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>&lt;button onclick="console.log('Button clicked!'); alert('You clicked me!');"&gt;Click Me&lt;/button&gt;</code></pre></div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-num">01 · 06</div>
+          <div class="exercise-text">Create two buttons. One changes the page to show a big red heading that says "CHANGED!". The other resets the page back to a normal heading saying "Original".</div>
           <span class="tag tag-hard">Hard</span>
           <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
-          <div class="hint">Use inline style inside the HTML string: <code>'&lt;h1 style="color:red"&gt;Red!&lt;/h1&gt;'</code>. For the reset button, set innerHTML back to something normal.</div>
+          <div class="hint">Use inline style in the string: <code>'&lt;h1 style="color:red"&gt;CHANGED!&lt;/h1&gt;'</code>. For the reset button, set innerHTML back to something plain.</div>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>&lt;button onclick="document.body.innerHTML = '&lt;h1 style=\'color:red\'&gt;Red!&lt;/h1&gt;'"&gt;Red&lt;/button&gt;
-&lt;button onclick="document.body.innerHTML = '&lt;h1&gt;Original Content&lt;/h1&gt;'"&gt;Reset&lt;/button&gt;</code></pre></div>
+          <div class="solution"><pre><code>&lt;button onclick="document.body.innerHTML='&lt;h1 style=\'color:red\'&gt;CHANGED!&lt;/h1&gt;'"&gt;Break It&lt;/button&gt;
+&lt;button onclick="document.body.innerHTML='&lt;h1&gt;Original&lt;/h1&gt;'"&gt;Reset&lt;/button&gt;</code></pre></div>
         </div>
-      </div>    <!-- SECTION 02: NUMBERS & MATH -->
+
+        <div class="exercise">
+          <div class="exercise-num">01 · 07</div>
+          <div class="exercise-text"><strong>Think about it:</strong> What happens if you remove the quotes from an alert? Type <code>alert(hello)</code> (without quotes) and read the error in the console. What does the error say?</div>
+          <span class="tag tag-hard">Hard</span>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>// It throws: ReferenceError: hello is not defined
+// Because without quotes, JS thinks 'hello' is a variable name, not text.
+// Text always needs quotes!</code></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 02: NUMBERS & MATH -->
     <div class="section" id="s2">
       <div class="section-header">
         <span class="section-num">02</span>
@@ -169,58 +438,93 @@ console.log('Message 3');</code></pre></div>
         <span class="section-time"><i data-lucide="clock"></i> ~20 min</span>
       </div>
 
-      <div class="concept">
-        <div class="concept-title">Basic Operators</div>
-        <p>JavaScript handles math just like a calculator. Addition <code>+</code>, Subtraction <code>-</code>, Multiplication <code>*</code>, Division <code>/</code>. Brackets control priority, just like in school.</p>
+      <div class="timing-bar">
+        <span class="timing-pill concept-pill">~8 min concept</span>
+        <span class="timing-pill exercise-pill">~12 min exercises</span>
+      </div>
+
+      <div class="analogy">
+        <span class="emoji">🧮</span> <strong>The Analogy:</strong> JavaScript is basically a calculator that also speaks English. Numbers work exactly how you'd expect — the only weird part is decimals, because computers count in binary (0s and 1s), which makes some fractions imprecise. We work around it like pros.
       </div>
 
       <div class="concept">
-        <div class="concept-title">Order of Operations</div>
-        <p>JS follows the same rules as maths: brackets first, then multiplication/division (left to right), then addition/subtraction. <code>(2 + 3) * 4</code> equals 20, not 14.</p>
+        <div class="concept-title">Basic Math Operators</div>
+        <p>
+          <code>+</code> Addition &nbsp;·&nbsp;
+          <code>-</code> Subtraction &nbsp;·&nbsp;
+          <code>*</code> Multiplication &nbsp;·&nbsp;
+          <code>/</code> Division &nbsp;·&nbsp;
+          <code>%</code> Remainder (Modulus)
+        </p>
       </div>
 
       <div class="concept">
-        <div class="concept-title">The "Float Problem"</div>
-        <p>Computers store decimals imperfectly. Try <code>0.1 + 0.2</code> — you'll get <code>0.30000000000000004</code>. For money, <strong>always work in cents</strong> to avoid this. Use <code>Math.round()</code> when needed.</p>
+        <div class="concept-title">Order of Operations (BODMAS/PEMDAS)</div>
+        <p>JavaScript follows the same maths rules you learned in school. Brackets first. Then multiplication and division (left to right). Then addition and subtraction. When in doubt — use brackets!</p>
+        <p style="margin-top:8px">Example: <code>2 + 3 * 4</code> = <strong>14</strong> (not 20, because * happens first). <code>(2 + 3) * 4</code> = <strong>20</strong> (brackets force + to go first).</p>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">Integers vs Floats</div>
+        <p><strong>Integer</strong> = whole number (1, 5, 100). <strong>Float</strong> = decimal number (3.14, 0.5, 99.99). JavaScript treats them both as the type <code>number</code> — no distinction needed in your code.</p>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">The Float Problem 🤯</div>
+        <p>Try running <code>console.log(0.1 + 0.2)</code>. You'll get <code>0.30000000000000004</code> — not 0.3. This is because computers store decimals in binary, and some decimals (like 0.1) can't be stored perfectly, just like 1/3 in decimal is 0.3333... forever.</p>
+        <p style="margin-top:8px"><strong>The fix for money:</strong> Never work with decimal dollars. Work in <strong>cents</strong> instead. $20.95 = 2095 cents. Add the cents, then divide by 100 at the end.</p>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">Math.round() and Math.random()</div>
+        <p><code>Math.round(2.7)</code> → <code>3</code>. Rounds to the nearest whole number.<br>
+        <code>Math.random()</code> → a random decimal between 0 and 1 (like 0.4839...). We'll use this in the Rock Paper Scissors game.</p>
       </div>
 
       <div class="code-block">
         <div class="code-header"><span class="code-label">Example</span><span class="code-lang">JS</span></div>
-        <pre><span class="log">console</span>.<span class="fn">log</span>(<span class="num">5</span> + <span class="num">3</span>);       <span class="cm">// 8</span>
-<span class="log">console</span>.<span class="fn">log</span>(<span class="num">10</span> - <span class="num">4</span>);      <span class="cm">// 6</span>
-<span class="log">console</span>.<span class="fn">log</span>(<span class="num">3</span> * <span class="num">4</span>);        <span class="cm">// 12</span>
-<span class="log">console</span>.<span class="fn">log</span>(<span class="num">15</span> / <span class="num">3</span>);       <span class="cm">// 5</span>
+        <pre><span class="cm">// Basic math</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="num">5</span> + <span class="num">3</span>);           <span class="cm">// 8</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="num">10</span> - <span class="num">4</span>);          <span class="cm">// 6</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="num">3</span> * <span class="num">4</span>);            <span class="cm">// 12</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="num">15</span> / <span class="num">3</span>);           <span class="cm">// 5</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="num">10</span> % <span class="num">3</span>);           <span class="cm">// 1 (remainder after 10 ÷ 3)</span>
 
 <span class="cm">// Order of operations</span>
-<span class="log">console</span>.<span class="fn">log</span>(<span class="num">2</span> + <span class="num">3</span> * <span class="num">4</span>);    <span class="cm">// 14</span>
-<span class="log">console</span>.<span class="fn">log</span>((<span class="num">2</span> + <span class="num">3</span>) * <span class="num">4</span>);  <span class="cm">// 20</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="num">2</span> + <span class="num">3</span> * <span class="num">4</span>);      <span class="cm">// 14 (not 20)</span>
+<span class="log">console</span>.<span class="fn">log</span>((<span class="num">2</span> + <span class="num">3</span>) * <span class="num">4</span>);    <span class="cm">// 20</span>
 
 <span class="cm">// The float problem</span>
-<span class="log">console</span>.<span class="fn">log</span>(<span class="num">0.1</span> + <span class="num">0.2</span>);    <span class="cm">// 0.30000000000000004</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="num">0.1</span> + <span class="num">0.2</span>);        <span class="cm">// 0.30000000000000004 😬</span>
 
-<span class="cm">// Money strategy (cents)</span>
-<span class="log">console</span>.<span class="fn">log</span>((<span class="num">2095</span> + <span class="num">799</span>) / <span class="num">100</span>);  <span class="cm">// 28.94</span></pre>
+<span class="cm">// The cents strategy (for money)</span>
+<span class="log">console</span>.<span class="fn">log</span>((<span class="num">2095</span> + <span class="num">799</span>) / <span class="num">100</span>);  <span class="cm">// 28.94 ✓</span>
+
+<span class="cm">// Math helpers</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="var">Math</span>.<span class="fn">round</span>(<span class="num">4.7</span>));    <span class="cm">// 5</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="var">Math</span>.<span class="fn">round</span>(<span class="num">4.2</span>));    <span class="cm">// 4</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="var">Math</span>.<span class="fn">random</span>());      <span class="cm">// something between 0 and 1</span></pre>
       </div>
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Tip:</strong> Ask the student: "Why do you think 0.1 + 0.2 isn't exactly 0.3?" Explain that computers use binary, which is like trying to write 1/3 as a decimal (0.333...) — it never quite ends.</span>
+        <span><strong>👨‍🏫 Teacher:</strong> The float problem always gets a good reaction. Ask: "What do you think 0.1 + 0.2 is?" — she'll say 0.3. Run it and watch the surprise. Then explain the binary analogy: "It's like trying to write 1/3 as a decimal. You'd write 0.333... forever. Computers have the same problem with some decimals." Then show the cents fix — explain this is how Paystack, Flutterwave, and every payment company in the world actually handles money.</span>
       </div>
 
       <div class="exercises">
-        <div class="exercises-header">Exercises — Numbers</div>
+        <div class="exercises-header">Exercises — Numbers & Math</div>
 
         <div class="exercise">
           <div class="exercise-num">02 · 01</div>
-          <div class="exercise-text">Calculate and log: <code>7 + 3 * 2</code>. Before running it, guess the answer.</div>
+          <div class="exercise-text">Before running it — guess the answer: <code>7 + 3 * 2</code>. Then run it. Were you right?</div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>console.log(7 + 3 * 2); // 13</code></pre></div>
+          <div class="solution"><pre><code>console.log(7 + 3 * 2); // 13, not 20. Multiplication goes first.</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">02 · 02</div>
-          <div class="exercise-text">What is 15% of 80? (Hint: 15% = 0.15)</div>
+          <div class="exercise-text">What is 15% of 80? Calculate and log it. (Hint: 15% = 15/100 = 0.15)</div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>console.log(80 * 0.15); // 12</code></pre></div>
@@ -228,42 +532,65 @@ console.log('Message 3');</code></pre></div>
 
         <div class="exercise">
           <div class="exercise-num">02 · 03</div>
+          <div class="exercise-text">What is 10% of 500? What is 25% of 200? Log both.</div>
+          <span class="tag tag-easy">Easy</span>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>console.log(500 * 0.10); // 50
+console.log(200 * 0.25); // 50</code></pre></div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-num">02 · 04</div>
           <div class="exercise-text">A shirt costs $24.99 and trousers cost $49.99. Using the <strong>cents strategy</strong>, calculate the total in dollars.</div>
           <span class="tag tag-medium">Medium</span>
           <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
-          <div class="hint">Total in cents: 2499 + 4999. Then divide by 100.</div>
+          <div class="hint">$24.99 = 2499 cents. $49.99 = 4999 cents. Add cents, then divide by 100.</div>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>console.log((2499 + 4999) / 100); // 74.98</code></pre></div>
         </div>
 
         <div class="exercise">
-          <div class="exercise-num">02 · 04</div>
-          <div class="exercise-text">You earn ₦150,000 per month. Calculate: monthly tax (20%), monthly savings (10%), and what you're left with.</div>
+          <div class="exercise-num">02 · 05</div>
+          <div class="exercise-text">You earn ₦150,000 per month. Calculate and log: monthly tax (20%), monthly savings (10%), and what you're left with after both.</div>
           <span class="tag tag-medium">Medium</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>console.log(150000 * 0.2); // Tax (30000)
-console.log(150000 * 0.1); // Savings (15000)
-console.log(150000 - 30000 - 15000); // Left (105000)</code></pre></div>
-        </div>
-
-        <div class="exercise">
-          <div class="exercise-num">02 · 05</div>
-          <div class="exercise-text">A restaurant bill is $47.60. Calculate: 10% service charge, then 7.5% VAT on the total. Round to 2 decimal places.</div>
-          <span class="tag tag-hard">Hard</span>
-          <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
-          <div class="hint">Use <code>Math.round(...)</code> to fix any float decimals.</div>
-          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>const bill = 47.60 + (47.60 * 0.1);
-const total = bill + (bill * 0.075);
-console.log(Math.round(total * 100) / 100);</code></pre></div>
+          <div class="solution"><pre><code>const salary = 150000;
+console.log(salary * 0.20);  // Tax: 30000
+console.log(salary * 0.10);  // Savings: 15000
+console.log(salary - (salary * 0.20) - (salary * 0.10)); // Left: 105000</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">02 · 06</div>
-          <div class="exercise-text">Without running it — what does <code>console.log(2 + 3 + "4")</code> print? Try it.</div>
+          <div class="exercise-text">A restaurant bill is $47.60. Calculate: 10% service charge added to the total, then 7.5% VAT on that new total. Round the final answer to the nearest whole number.</div>
+          <span class="tag tag-hard">Hard</span>
+          <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
+          <div class="hint">First: bill + service charge. Then: that result + VAT. Use <code>Math.round()</code> at the end.</div>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>const bill = 47.60;
+const withService = bill + (bill * 0.10);  // 52.36
+const withVAT = withService + (withService * 0.075);  // 56.287
+console.log(Math.round(withVAT));  // 56</code></pre></div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-num">02 · 07</div>
+          <div class="exercise-text"><strong>Predict then run:</strong> What does <code>console.log(2 + 3 + "4")</code> print? What about <code>console.log("4" + 2 + 3)</code>? Why are they different?</div>
           <span class="tag tag-hard">Hard</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>console.log(2 + 3 + "4"); // 54</code></pre></div>
+          <div class="solution"><pre><code>console.log(2 + 3 + "4");  // "54" — 2+3=5, then 5+"4" = "54"
+console.log("4" + 2 + 3);  // "423" — "4"+2 = "42", then "42"+3 = "423"
+// The moment JS hits a string with +, everything after becomes text!</code></pre></div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-num">02 · 08</div>
+          <div class="exercise-text">Is 17 an odd number? Use the <code>%</code> (modulus) operator to find the remainder when you divide 17 by 2. If the remainder is 1, it's odd. Log the remainder.</div>
+          <span class="tag tag-hard">Hard</span>
+          <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
+          <div class="hint"><code>17 % 2</code> gives you the remainder when 17 is divided by 2.</div>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>console.log(17 % 2); // 1 — yes, it's odd!</code></pre></div>
         </div>
       </div>
     </div>
@@ -276,46 +603,74 @@ console.log(Math.round(total * 100) / 100);</code></pre></div>
         <span class="section-time"><i data-lucide="clock"></i> ~20 min</span>
       </div>
 
+      <div class="timing-bar">
+        <span class="timing-pill concept-pill">~8 min concept</span>
+        <span class="timing-pill exercise-pill">~12 min exercises</span>
+      </div>
+
+      <div class="analogy">
+        <span class="emoji">💬</span> <strong>The Analogy:</strong> Numbers are for calculating. Strings are for communicating. When you want JavaScript to talk to a user — show a message, display a name, print a receipt — you need strings. A string is just text wrapped in quotes. Simple.
+      </div>
+
       <div class="concept">
         <div class="concept-title">What is a String?</div>
-        <p>A string is just text. Any characters wrapped in quotes. You can use single quotes <code>'hello'</code>, double quotes <code>"hello"</code>, or backticks <code>`hello`</code>. They mostly behave the same — but backticks have a superpower.</p>
+        <p>A string is any piece of text. Wrap it in quotes and it becomes a string. You can use three kinds of quotes — they mostly behave the same, but backticks have a superpower called <strong>interpolation</strong>.</p>
+      </div>
+
+      <table class="compare-table">
+        <thead>
+          <tr><th>Quote Type</th><th>Syntax</th><th>When to use</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Single quotes</td><td><code>'Hello'</code></td><td>Default. Use for most strings.</td></tr>
+          <tr><td>Double quotes</td><td><code>"Hello"</code></td><td>When your string contains a single quote: <code>"I'm learning"</code></td></tr>
+          <tr><td>Backticks</td><td><code>`Hello`</code></td><td>When you need to embed variables or expressions inside the string (interpolation). Also works for multi-line strings.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="concept">
+        <div class="concept-title">Concatenation</div>
+        <p>Using <code>+</code> to join strings together. It works, but it's messy and easy to forget spaces.</p>
       </div>
 
       <div class="concept">
-        <div class="concept-title">Concatenation vs Interpolation</div>
-        <p><strong>Concatenation</strong> = gluing strings together with <code>+</code>. <strong>Interpolation</strong> = embedding values directly inside a string using backticks and <code>${ }</code>. Interpolation is almost always cleaner — prefer it.</p>
+        <div class="concept-title">Interpolation (Prefer This!)</div>
+        <p>Embedding a variable or expression directly inside a backtick string using <code>${ }</code>. This is cleaner, easier to read, and less error-prone than concatenation. Use this by default whenever you need variables inside strings.</p>
       </div>
 
       <div class="concept">
-        <div class="concept-title">Coercion (the sneaky one)</div>
-        <p>When you use <code>+</code> between a string and a number, JavaScript converts the number into a string. So <code>"5" + 3</code> gives you <code>"53"</code>, not 8. This trips up a lot of beginners!</p>
+        <div class="concept-title">Type Coercion (The Sneaky One)</div>
+        <p>When you use <code>+</code> between a string and a number, JavaScript converts the number into a string automatically. So <code>"5" + 3</code> gives you <code>"53"</code>, not 8. This trips everyone up at least once. The rule: if JS sees a string and a <code>+</code>, it joins, it doesn't add.</p>
       </div>
 
       <div class="code-block">
         <div class="code-header"><span class="code-label">Example</span><span class="code-lang">JS</span></div>
-        <pre><span class="cm">// Three ways to write strings</span>
-<span class="str">'Hello'</span>
-<span class="str">"Hello"</span>
-<span class="str">`Hello`</span>
+        <pre><span class="cm">// The three ways to write strings</span>
+<span class="str">'Single quotes'</span>
+<span class="str">"Double quotes — useful when there's an apostrophe"</span>
+<span class="str">`Backticks — the powerful ones`</span>
 
-<span class="cm">// Concatenation</span>
-<span class="str">'Items ('</span> + (<span class="num">2</span> + <span class="num">3</span>) + <span class="str">'): $'</span> + (<span class="num">2095</span> + <span class="num">799</span>) / <span class="num">100</span>;
+<span class="cm">// Concatenation (old way)</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="str">'My name is '</span> + <span class="str">'Ada'</span>);
+<span class="log">console</span>.<span class="fn">log</span>(<span class="str">'Items ('</span> + (<span class="num">2</span> + <span class="num">3</span>) + <span class="str">'): $'</span> + (<span class="num">2095</span> + <span class="num">799</span>) / <span class="num">100</span>);
 
-<span class="cm">// Interpolation (Easier!)</span>
-<span class="str">`Items (${<span class="num">2</span> + <span class="num">3</span>}): $${(<span class="num">2095</span> + <span class="num">799</span>) / <span class="num">100</span>}`</span>;
+<span class="cm">// Interpolation (better way — uses backticks)</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="str">`My name is ${'Ada'}`</span>);
+<span class="log">console</span>.<span class="fn">log</span>(<span class="str">`Items (${<span class="num">2</span> + <span class="num">3</span>}): $${(<span class="num">2095</span> + <span class="num">799</span>) / <span class="num">100</span>}`</span>);
 
-<span class="cm">// Multi-line string (only with backticks)</span>
-<span class="str">`Hello
-World`</span>;
+<span class="cm">// Multi-line — only backticks can do this!</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="str">`Line one
+Line two
+Line three`</span>);
 
-<span class="cm">// Coercion</span>
-<span class="str">'5'</span> + <span class="num">3</span> <span class="cm">// '53'</span>
-<span class="str">'5'</span> - <span class="num">3</span> <span class="cm">// 2 (Math magic!)</span></pre>
+<span class="cm">// Coercion — the tricky one</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="str">'5'</span> + <span class="num">3</span>);   <span class="cm">// '53' — joined as text!</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="str">'5'</span> - <span class="num">3</span>);   <span class="cm">// 2 — subtraction forces it to be a number</span></pre>
       </div>
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> This is a great place to show "Why strings matter." Use the cart analogy: "We have numbers for math, but we need strings to show the user a pretty message like 'You have 5 items in your cart'."</span>
+        <span><strong>👨‍🏫 Teacher:</strong> Start by asking "what do you think <code>'5' + 3</code> gives?" She'll probably say 8. Run it — show it gives "53". Then show <code>'5' - 3</code> = 2. Explain: the <code>+</code> is doing double duty — it's both math addition AND text joining. When JS sees a string, it picks text-joining. But <code>-</code> only works for math, so JS is forced to convert '5' to a number. Then show interpolation and ask her which is cleaner — she'll pick backticks every time.</span>
       </div>
 
       <div class="exercises">
@@ -323,62 +678,80 @@ World`</span>;
 
         <div class="exercise">
           <div class="exercise-num">03 · 01</div>
-          <div class="exercise-text">Create a string that shows your favorite movie title.</div>
+          <div class="exercise-text">Create and log a string with your favorite food. Use single quotes.</div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>'Inception'</code></pre></div>
+          <div class="solution"><pre><code>console.log('Jollof rice');</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">03 · 02</div>
-          <div class="exercise-text">Use concatenation to create the sentence: "My name is [Your Name]".</div>
+          <div class="exercise-text">Use concatenation to build and log: <code>"My name is [name] and I am [age] years old."</code></div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>'My name is ' + 'Bolaji'</code></pre></div>
+          <div class="solution"><pre><code>console.log('My name is ' + 'Ada' + ' and I am ' + 22 + ' years old.');</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">03 · 03</div>
-          <div class="exercise-text">Use interpolation (backticks) to create the same sentence: "My name is [Your Name]".</div>
-          <span class="tag tag-medium">Medium</span>
-          <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
-          <div class="hint">Use backticks and <code>${}</code>.</div>
+          <div class="exercise-text">Rewrite the previous exercise using interpolation (backticks and <code>${}</code>). Which is cleaner?</div>
+          <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>`My name is ${'Bolaji'}`</code></pre></div>
+          <div class="solution"><pre><code>const name = 'Ada';
+const age = 22;
+console.log(`My name is ${name} and I am ${age} years old.`);</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">03 · 04</div>
-          <div class="exercise-text">Create a cart message like this: "Total (2 items): $74.98". Use the prices from the previous section ($24.99 and $49.99) and use interpolation.</div>
+          <div class="exercise-text">Create a cart summary using interpolation: <code>"Total (2 items): $74.98"</code>. Use the cents strategy for the price ($24.99 + $49.99).</div>
           <span class="tag tag-medium">Medium</span>
           <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
-          <div class="hint">Use the cents strategy inside the <code>${}</code>.</div>
+          <div class="hint">Put the calculation inside <code>${}</code>: <code>${(2499 + 4999) / 100}</code></div>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>`Total (2 items): $${(2499 + 4999) / 100}`</code></pre></div>
+          <div class="solution"><pre><code>console.log(`Total (2 items): $${(2499 + 4999) / 100}`);</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">03 · 05</div>
-          <div class="exercise-text">Calculate and log: <code>'20' - 5</code>. Then log: <code>'20' + 5</code>.</div>
-          <span class="tag tag-hard">Hard</span>
+          <div class="exercise-text">Log: <code>'20' - 5</code>. Then log: <code>'20' + 5</code>. Before running, predict both outputs. What's happening?</div>
+          <span class="tag tag-medium">Medium</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>console.log('20' - 5); // 15
-console.log('20' + 5); // 205</code></pre></div>
+          <div class="solution"><pre><code>console.log('20' - 5); // 15 — subtraction forces number conversion
+console.log('20' + 5); // '205' — + triggers string joining</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">03 · 06</div>
-          <div class="exercise-text">Create a multi-line string using backticks that looks like a receipt:
-            <br>---
-            <br>Total: $50
-            <br>Tax: $5
-            <br>---</div>
+          <div class="exercise-text">Create a multi-line receipt using backticks. It should look like:<br><code>---</code><br><code>Item: Jollof Rice — $5</code><br><code>Item: Zobo — $2</code><br><code>Total: $7</code><br><code>---</code></div>
+          <span class="tag tag-medium">Medium</span>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>console.log(`---
+Item: Jollof Rice — $5
+Item: Zobo — $2
+Total: $7
+---`);</code></pre></div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-num">03 · 07</div>
+          <div class="exercise-text">Create a personalized tweet using interpolation. Variables: <code>username</code>, <code>followers</code>, <code>topic</code>. Output: <code>"@Ada just posted about JavaScript. 3,200 followers are watching."</code></div>
           <span class="tag tag-hard">Hard</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>`---
-Total: $50
-Tax: $5
----`</code></pre></div>
+          <div class="solution"><pre><code>const username = 'Ada';
+const followers = 3200;
+const topic = 'JavaScript';
+console.log(`@${username} just posted about ${topic}. ${followers.toLocaleString()} followers are watching.`);</code></pre></div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-num">03 · 08</div>
+          <div class="exercise-text"><strong>String Experiment:</strong> What is the length of the string <code>'Hello'</code>? Try typing <code>'Hello'.length</code>. Then try it on your own name. What does <code>.length</code> do?</div>
+          <span class="tag tag-hard">Hard</span>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>console.log('Hello'.length);     // 5
+console.log('Ada'.length);        // 3
+// .length is a property — it gives you the number of characters in a string</code></pre></div>
         </div>
       </div>
     </div>
@@ -391,42 +764,80 @@ Tax: $5
         <span class="section-time"><i data-lucide="clock"></i> ~20 min</span>
       </div>
 
+      <div class="timing-bar">
+        <span class="timing-pill concept-pill">~8 min concept</span>
+        <span class="timing-pill exercise-pill">~12 min exercises</span>
+      </div>
+
+      <div class="analogy">
+        <span class="emoji">📦</span> <strong>The Analogy:</strong> A variable is like a labelled box. You put a value in the box and give the box a name. Whenever you need that value, you just use the box's name. <code>const</code> is a box you tape shut — you can look inside but never change what's in it. <code>let</code> is a box you can keep opening and swapping things out.
+      </div>
+
       <div class="concept">
         <div class="concept-title">What is a Variable?</div>
-        <p>A variable is a named box for storing a value. You give it a name, put something inside, and use that name whenever you need the value. Simple.</p>
+        <p>A variable stores a value so you can use it later — and reference it by name instead of repeating the value everywhere. This makes code smarter, reusable, and easier to change.</p>
       </div>
 
       <table class="compare-table">
         <thead>
-          <tr><th>Keyword</th><th>Can change?</th><th>When to use</th></tr>
+          <tr><th>Keyword</th><th>Can change?</th><th>When to use</th><th>Example</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>const</code></td><td>No — it's locked</td><td>Default choice. Use for values that won't change.</td></tr>
-          <tr><td><code>let</code></td><td>Yes — flexible</td><td>When the value will change (e.g. a cart counter).</td></tr>
-          <tr><td><code>var</code></td><td>Yes — but messy</td><td>Old style, has scope issues. Avoid in modern code.</td></tr>
+          <tr><td><code>const</code></td><td>❌ No — it's locked</td><td>Default. Use this unless you know it'll change.</td><td><code>const pi = 3.14</code></td></tr>
+          <tr><td><code>let</code></td><td>✅ Yes — flexible</td><td>When the value will change (e.g. a score, a cart count).</td><td><code>let score = 0</code></td></tr>
+          <tr><td><code>var</code></td><td>✅ Yes — but messy</td><td>Old way. Has scope issues. Don't use in new code.</td><td><code>var x = 5</code> (avoid)</td></tr>
         </tbody>
       </table>
 
+      <div class="concept">
+        <div class="concept-title">Naming Rules</div>
+        <p>
+          ✅ Can contain letters, numbers, <code>$</code>, and <code>_</code><br>
+          ✅ Use camelCase: <code>myName</code>, <code>cartTotal</code>, <code>isLoggedIn</code><br>
+          ❌ Cannot start with a number: <code>1name</code> = error<br>
+          ❌ Cannot use reserved words: <code>let let = 5</code> = error<br>
+          ❌ Cannot have spaces: <code>my name</code> = error
+        </p>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">Shorthand Update Operators</div>
+        <p>
+          <code>score = score + 1</code> ← long way<br>
+          <code>score += 1</code> ← shorthand (same thing)<br>
+          <code>score++</code> ← even shorter (only adds 1)<br><br>
+          Also: <code>-=</code>, <code>*=</code>, <code>/=</code>. These all update a variable in place.
+        </p>
+      </div>
+
       <div class="code-block">
         <div class="code-header"><span class="code-label">Example</span><span class="code-lang">JS</span></div>
-        <pre><span class="cm">// const — can't be reassigned</span>
+        <pre><span class="cm">// const — locked, can't reassign</span>
 <span class="kw">const</span> <span class="var">pi</span> = <span class="num">3.14159</span>;
-<span class="log">console</span>.<span class="fn">log</span>(<span class="var">pi</span>);             <span class="cm">// 3.14159</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="var">pi</span>);              <span class="cm">// 3.14159</span>
+<span class="cm">// pi = 3.14;               // ❌ Error: Assignment to constant variable</span>
 
-<span class="cm">// let — can be reassigned</span>
+<span class="cm">// let — flexible, can reassign</span>
 <span class="kw">let</span> <span class="var">score</span> = <span class="num">0</span>;
 <span class="log">console</span>.<span class="fn">log</span>(<span class="var">score</span>);          <span class="cm">// 0</span>
-<span class="var">score</span> = <span class="num">10</span>;
+<span class="var">score</span> = <span class="num">10</span>;                  <span class="cm">// reassign ✓</span>
 <span class="log">console</span>.<span class="fn">log</span>(<span class="var">score</span>);          <span class="cm">// 10</span>
 
-<span class="cm">// Shorthand update operators</span>
-<span class="var">score</span> += <span class="num">5</span>;                  <span class="cm">// same as score = score + 5</span>
-<span class="var">score</span>++;                     <span class="cm">// same as score = score + 1</span></pre>
+<span class="cm">// Shorthand operators</span>
+<span class="var">score</span> += <span class="num">5</span>;                  <span class="cm">// same as score = score + 5 → 15</span>
+<span class="var">score</span>++;                     <span class="cm">// same as score = score + 1 → 16</span>
+<span class="var">score</span> *= <span class="num">2</span>;                  <span class="cm">// same as score = score * 2 → 32</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="var">score</span>);          <span class="cm">// 32</span>
+
+<span class="cm">// Using variables in interpolation</span>
+<span class="kw">const</span> <span class="var">name</span> = <span class="str">'Ada'</span>;
+<span class="kw">const</span> <span class="var">items</span> = <span class="num">3</span>;
+<span class="log">console</span>.<span class="fn">log</span>(<span class="str">`Hello ${<span class="var">name</span>}, you have ${<span class="var">items</span>} items in your cart.`</span>);</pre>
       </div>
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> Use the "Storage Box" analogy. <code>const</code> is a box that's taped shut after you put something in. <code>let</code> is a box with a lid you can keep opening and changing.</span>
+        <span><strong>👨‍🏫 Teacher:</strong> Show the error you get when trying to reassign a <code>const</code> — it's a great teaching moment. Then demonstrate shorthand operators with a live score counter: start at 0, use <code>score++</code> a few times, log it each time. Connect it to games ("this is literally how a game score works"). Naming: tell her the golden rule — names should describe what the variable contains. <code>x</code> is bad, <code>cartTotal</code> is good.</span>
       </div>
 
       <div class="exercises">
@@ -434,18 +845,18 @@ Tax: $5
 
         <div class="exercise">
           <div class="exercise-num">04 · 01</div>
-          <div class="exercise-text">Create a <code>const</code> called <code>myName</code> and a <code>let</code> called <code>myAge</code>. Log both. Try to change <code>myName</code> and see the error in the console.</div>
+          <div class="exercise-text">Create a <code>const</code> called <code>myName</code> with your name, and a <code>let</code> called <code>myAge</code> with your age. Log both. Then try to change <code>myName</code> to something else — what error do you get?</div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>const myName = 'Sam';
-let myAge = 25;
+          <div class="solution"><pre><code>const myName = 'Ada';
+let myAge = 22;
 console.log(myName, myAge);
-// myName = 'Bob'; // This will crash!</code></pre></div>
+// myName = 'Bob'; // TypeError: Assignment to constant variable</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">04 · 02</div>
-          <div class="exercise-text">Start with <code>let steps = 0</code>. Add 1000 steps, then add 500 more, then remove 200. Log the final count.</div>
+          <div class="exercise-text">Start with <code>let steps = 0</code>. You took 1000 steps in the morning, 500 at lunch, and lost 200 steps somehow. Log the final count. Use <code>+=</code> and <code>-=</code>.</div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>let steps = 0;
@@ -457,51 +868,71 @@ console.log(steps); // 1300</code></pre></div>
 
         <div class="exercise">
           <div class="exercise-num">04 · 03</div>
-          <div class="exercise-text">Create a variable for <code>itemsCount</code> starting at 0. Add 1 item, then multiply it by 3, then subtract 1. Use shorthand operators (<code>++</code>, <code>*=</code>, <code>-=</code>).</div>
+          <div class="exercise-text">Create <code>let itemsInCart = 0</code>. Add 1 item using <code>++</code>. Triple the cart using <code>*=</code>. Remove 1 using <code>--</code>. Log the final value.</div>
           <span class="tag tag-medium">Medium</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>let itemsCount = 0;
-itemsCount++;
-itemsCount *= 3;
-itemsCount -= 1;
-console.log(itemsCount); // 2</code></pre></div>
+          <div class="solution"><pre><code>let itemsInCart = 0;
+itemsInCart++;   // 1
+itemsInCart *= 3; // 3
+itemsInCart--;   // 2
+console.log(itemsInCart); // 2</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">04 · 04</div>
-          <div class="exercise-text">A user has $100. They buy 3 items costing $15 each. Store these as variables. Calculate their remaining balance and log it.</div>
+          <div class="exercise-text">Store these as variables: a starting wallet of ₦10,000, item price ₦1,500, and quantity 3. Calculate and log the remaining balance after buying the items.</div>
           <span class="tag tag-medium">Medium</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>const start = 100;
-const price = 15;
-const qty = 3;
-const spent = price * qty;
-console.log(start - spent); // 55</code></pre></div>
+          <div class="solution"><pre><code>const wallet = 10000;
+const price = 1500;
+const quantity = 3;
+const spent = price * quantity;
+console.log(wallet - spent); // 5500</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">04 · 05</div>
-          <div class="exercise-text"><strong>Variable Swapping:</strong> You have <code>let a = 10</code> and <code>let b = 20</code>. Swap their values so <code>a</code> is 20 and <code>b</code> is 10.</div>
-          <span class="tag tag-hard">Hard</span>
-          <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
-          <div class="hint">Use a "third empty cup" (a temporary variable) to hold one value while you swap.</div>
+          <div class="exercise-text">Create variables for <code>username</code> and <code>notificationsCount</code>. Use interpolation to log: <code>"Hello Ada, you have 7 new messages."</code></div>
+          <span class="tag tag-medium">Medium</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>let a = 10;
-let b = 20;
-let temp = a;
-a = b;
-b = temp;
-console.log(a, b); // 20, 10</code></pre></div>
+          <div class="solution"><pre><code>const username = 'Ada';
+const notificationsCount = 7;
+console.log(`Hello ${username}, you have ${notificationsCount} new messages.`);</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">04 · 06</div>
-          <div class="exercise-text"><strong>Bonus:</strong> Create variables for <code>username</code> and <code>notificationsCount</code>. Print: "Hello [username], you have [notificationsCount] new messages."</div>
+          <div class="exercise-text"><strong>Variable Swap:</strong> You have <code>let a = 10</code> and <code>let b = 20</code>. Swap their values so that <code>a</code> becomes 20 and <code>b</code> becomes 10. Log both at the end.</div>
+          <span class="tag tag-hard">Hard</span>
+          <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
+          <div class="hint">Use a "third empty cup". Create a <code>let temp</code> to hold one value while you move things around.</div>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>let a = 10;
+let b = 20;
+let temp = a;  // save a into temp
+a = b;          // a is now 20
+b = temp;       // b is now 10
+console.log(a, b); // 20 10</code></pre></div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-num">04 · 07</div>
+          <div class="exercise-text"><strong>Receipt Builder:</strong> Create variables for <code>storeName</code>, <code>item1Price</code>, <code>item2Price</code>, and <code>customerName</code>. Calculate the total. Use interpolation to log a full receipt with the store name, customer name, item prices, and total.</div>
           <span class="tag tag-hard">Hard</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>const user = 'Bolaji';
-const count = 7;
-console.log(`Hello ${user}, you have ${count} new messages.`);</code></pre></div>
+          <div class="solution"><pre><code>const storeName = 'QuickMart';
+const item1Price = 1200;
+const item2Price = 850;
+const customerName = 'Ada';
+const total = item1Price + item2Price;
+
+console.log(`
+--- ${storeName} Receipt ---
+Customer: ${customerName}
+Item 1: ₦${item1Price}
+Item 2: ₦${item2Price}
+Total: ₦${total}
+`);</code></pre></div>
         </div>
       </div>
     </div>
@@ -514,16 +945,28 @@ console.log(`Hello ${user}, you have ${count} new messages.`);</code></pre></div
         <span class="section-time"><i data-lucide="clock"></i> ~20 min</span>
       </div>
 
+      <div class="timing-bar">
+        <span class="timing-pill concept-pill">~8 min concept</span>
+        <span class="timing-pill exercise-pill">~12 min exercises</span>
+      </div>
+
+      <div class="analogy">
+        <span class="emoji">💡</span> <strong>The Analogy:</strong> A boolean is a light switch. It's either ON (true) or OFF (false). That's it. Only two options. Booleans are the language computers use to make decisions — "Is the user logged in? Is the cart empty? Is the password correct?" — yes or no, true or false.
+      </div>
+
       <div class="concept">
         <div class="concept-title">Booleans</div>
-        <p>A boolean has only two possible values: <code>true</code> or <code>false</code>. Think of it like a light switch — on or off.</p>
+        <p>A boolean is a data type with only two possible values: <code>true</code> or <code>false</code>. No quotes, no numbers — just the words <code>true</code> and <code>false</code>.</p>
       </div>
 
       <table class="compare-table">
-        <thead><tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr></thead>
+        <thead>
+          <tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+        </thead>
         <tbody>
-          <tr><td><code>===</code></td><td>Strict equals</td><td><code>5 === 5</code></td><td><code>true</code></td></tr>
-          <tr><td><code>!==</code></td><td>Not equal</td><td><code>5 !== 3</code></td><td><code>true</code></td></tr>
+          <tr><td><code>===</code></td><td>Strict equal (checks value AND type)</td><td><code>5 === 5</code></td><td><code>true</code></td></tr>
+          <tr><td><code>!==</code></td><td>Strict not equal</td><td><code>5 !== 3</code></td><td><code>true</code></td></tr>
+          <tr><td><code>==</code></td><td>Loose equal (type-converts, avoid!)</td><td><code>5 == '5'</code></td><td><code>true</code> 😬</td></tr>
           <tr><td><code>&gt;</code></td><td>Greater than</td><td><code>10 &gt; 5</code></td><td><code>true</code></td></tr>
           <tr><td><code>&lt;</code></td><td>Less than</td><td><code>3 &lt; 1</code></td><td><code>false</code></td></tr>
           <tr><td><code>&gt;=</code></td><td>Greater or equal</td><td><code>18 &gt;= 18</code></td><td><code>true</code></td></tr>
@@ -531,22 +974,51 @@ console.log(`Hello ${user}, you have ${count} new messages.`);</code></pre></div
         </tbody>
       </table>
 
+      <div class="concept">
+        <div class="concept-title">=== vs == (Important!)</div>
+        <p><code>===</code> (triple equals) is the strict version. It checks both the value AND the data type. This is almost always what you want. <br><code>==</code> (double equals) is the loose version — it converts types before comparing, which causes unexpected bugs. <strong>Always use <code>===</code>.</strong></p>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">Truthy & Falsy Values</div>
+        <p>In JavaScript, not only <code>true</code> and <code>false</code> are booleans — every value has a "truthy" or "falsy" quality when used in a condition. <strong>Falsy</strong> means JS treats it like <code>false</code>. Everything else is truthy.</p>
+      </div>
+
+      <div class="falsy-grid">
+        <div class="falsy-item">false<div class="fi-label">the boolean false</div></div>
+        <div class="falsy-item">0<div class="fi-label">the number zero</div></div>
+        <div class="falsy-item">''<div class="fi-label">empty string</div></div>
+        <div class="falsy-item">null<div class="fi-label">intentional nothing</div></div>
+        <div class="falsy-item">undefined<div class="fi-label">never assigned</div></div>
+        <div class="falsy-item">NaN<div class="fi-label">Not a Number</div></div>
+      </div>
+
       <div class="code-block">
         <div class="code-header"><span class="code-label">Example</span><span class="code-lang">JS</span></div>
-        <pre><span class="log">console</span>.<span class="fn">log</span>(<span class="num">5</span> === <span class="num">5</span>);        <span class="cm">// true</span>
-<span class="log">console</span>.<span class="fn">log</span>(<span class="num">5</span> === <span class="str">'5'</span>);      <span class="cm">// false (Strict equals checks the type too!)</span>
-<span class="log">console</span>.<span class="fn">log</span>(<span class="num">10</span> &gt; <span class="num">3</span>);         <span class="cm">// true</span>
-<span class="log">console</span>.<span class="fn">log</span>(<span class="num">18</span> &gt;= <span class="num">18</span>);       <span class="cm">// true</span>
+        <pre><span class="cm">// Basic booleans</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">true</span>);             <span class="cm">// true</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">false</span>);            <span class="cm">// false</span>
 
-<span class="cm">// typeof operator</span>
-<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">typeof</span> <span class="str">'hello'</span>); <span class="cm">// 'string'</span>
-<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">typeof</span> <span class="num">5</span>);       <span class="cm">// 'number'</span>
-<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">typeof</span> <span class="kw">true</span>);    <span class="cm">// 'boolean'</span></pre>
+<span class="cm">// Comparison operators — they return a boolean</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="num">5</span> === <span class="num">5</span>);         <span class="cm">// true</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="num">5</span> === <span class="str">'5'</span>);       <span class="cm">// false (different types!)</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="num">5</span> == <span class="str">'5'</span>);        <span class="cm">// true (loose! converts before checking)</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="num">10</span> &gt; <span class="num">3</span>);          <span class="cm">// true</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="num">18</span> &gt;= <span class="num">18</span>);        <span class="cm">// true</span>
+
+<span class="cm">// typeof — inspect what type a value is</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">typeof</span> <span class="str">'hello'</span>);  <span class="cm">// 'string'</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">typeof</span> <span class="num">5</span>);        <span class="cm">// 'number'</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">typeof</span> <span class="kw">true</span>);     <span class="cm">// 'boolean'</span>
+
+<span class="cm">// Why 5 === '5' is false</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">typeof</span> <span class="num">5</span>);        <span class="cm">// 'number'</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">typeof</span> <span class="str">'5'</span>);      <span class="cm">// 'string' — different types!</span></pre>
       </div>
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> Use the "Strict Equals" (===) as the gold standard. Explain that == exists but is a "loose" cousin that causes bugs by trying to be too helpful.</span>
+        <span><strong>👨‍🏫 Teacher:</strong> Show the <code>===</code> vs <code>==</code> difference with <code>5 == '5'</code> (true) and <code>5 === '5'</code> (false). Explain: "double equals tries to be helpful and converts types, but this causes bugs you don't expect. Triple equals never converts — what you see is what you get. Always use ===." Then show <code>typeof</code> — it's a detective tool. Ask: "How would you prove to JavaScript that 5 and '5' are different? typeof!" This also sets up the falsy concept nicely.</span>
       </div>
 
       <div class="exercises">
@@ -554,46 +1026,65 @@ console.log(`Hello ${user}, you have ${count} new messages.`);</code></pre></div
 
         <div class="exercise">
           <div class="exercise-num">05 · 01</div>
-          <div class="exercise-text">Predict (then verify): <code>10 &gt; 9</code>, <code>10 === '10'</code>, <code>5 !== 5</code>.</div>
+          <div class="exercise-text">Before running each one, predict the result. Then run them: <code>10 > 9</code> &nbsp;|&nbsp; <code>10 === '10'</code> &nbsp;|&nbsp; <code>5 !== 5</code></div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>console.log(10 &gt; 9);       // true
-console.log(10 === '10');  // false
-console.log(5 !== 5);      // false</code></pre></div>
+          <div class="solution"><pre><code>console.log(10 > 9);       // true
+console.log(10 === '10');  // false — number vs string
+console.log(5 !== 5);      // false — they ARE equal</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">05 · 02</div>
-          <div class="exercise-text">Compare your age with the drinking age (18). Log if you are greater than or equal to it.</div>
+          <div class="exercise-text">Create <code>const age = 22</code>. Log whether the person is old enough to vote (18+) and old enough to rent a car (25+).</div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>const age = 22;
-console.log(age &gt;= 18); // true</code></pre></div>
+console.log(age >= 18); // true — can vote
+console.log(age >= 25); // false — can't rent yet</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">05 · 03</div>
-          <div class="exercise-text">Use <code>typeof</code> to see why <code>5 === '5'</code> is false. Log the type of both.</div>
+          <div class="exercise-text">Use <code>typeof</code> to find out the type of: <code>42</code>, <code>'42'</code>, <code>true</code>, <code>undefined</code>. Log all four.</div>
           <span class="tag tag-medium">Medium</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>console.log(typeof 5);   // 'number'
-console.log(typeof '5'); // 'string'</code></pre></div>
+          <div class="solution"><pre><code>console.log(typeof 42);          // 'number'
+console.log(typeof '42');        // 'string'
+console.log(typeof true);        // 'boolean'
+console.log(typeof undefined);   // 'undefined'</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">05 · 04</div>
-          <div class="exercise-text">Predict: <code>'Apple' &lt; 'Banana'</code>. Run it. Why is it true? (Hint: Alphabetical order).</div>
+          <div class="exercise-text">Predict: <code>'Apple' &lt; 'Banana'</code>. Run it. Why is this true? (Hint: JavaScript compares strings alphabetically, just like a dictionary.)</div>
           <span class="tag tag-medium">Medium</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>console.log('Apple' &lt; 'Banana'); // true</code></pre></div>
+          <div class="solution"><pre><code>console.log('Apple' < 'Banana'); // true
+// 'A' comes before 'B' in the alphabet, so Apple < Banana</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">05 · 05</div>
-          <div class="exercise-text">Challenge: Check if the result of <code>(5 + 5) === 10</code> is the same as <code>(2 * 5) === 10</code>.</div>
+          <div class="exercise-text">What do these falsy checks return? Log each: <code>Boolean(0)</code>, <code>Boolean('')</code>, <code>Boolean('hello')</code>, <code>Boolean(42)</code></div>
           <span class="tag tag-hard">Hard</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>console.log(((5 + 5) === 10) === ((2 * 5) === 10)); // true</code></pre></div>
+          <div class="solution"><pre><code>console.log(Boolean(0));       // false — 0 is falsy
+console.log(Boolean(''));      // false — empty string is falsy
+console.log(Boolean('hello')); // true — non-empty string is truthy
+console.log(Boolean(42));      // true — non-zero number is truthy</code></pre></div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-num">05 · 06</div>
+          <div class="exercise-text"><strong>Riddle:</strong> What is <code>typeof typeof 5</code>? Think step by step before running it.</div>
+          <span class="tag tag-extreme">Extreme</span>
+          <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
+          <div class="hint">Work from inside out. What does <code>typeof 5</code> return? Then what is the <code>typeof</code> that?</div>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>// typeof 5 → 'number' (a string)
+// typeof 'number' → 'string'
+console.log(typeof typeof 5); // 'string'</code></pre></div>
         </div>
       </div>
     </div>
@@ -602,43 +1093,81 @@ console.log(typeof '5'); // 'string'</code></pre></div>
     <div class="section" id="s6">
       <div class="section-header">
         <span class="section-num">06</span>
-        <span class="section-title">If-Statements</span>
+        <span class="section-title">If-Statements & Control Flow</span>
         <span class="section-time"><i data-lucide="clock"></i> ~25 min</span>
       </div>
 
-      <div class="teacher-note">
-        <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> This is where logic begins! Use real-world examples like "If it's raining, take an umbrella."</span>
+      <div class="timing-bar">
+        <span class="timing-pill concept-pill">~10 min concept</span>
+        <span class="timing-pill exercise-pill">~15 min exercises</span>
+      </div>
+
+      <div class="analogy">
+        <span class="emoji">🚦</span> <strong>The Analogy:</strong> An if-statement is a traffic light. If green, go. If yellow, slow down. If red, stop. Your code uses the same logic — check a condition, then decide what to do based on the answer. This is where your code starts to actually <em>think</em>.
       </div>
 
       <div class="concept">
         <div class="concept-title">The if-statement</div>
-        <p>An if-statement lets your code make decisions. The code in <code>{ }</code> only runs if the condition in <code>( )</code> is truthy.</p>
+        <p>An if-statement lets your code make decisions. The code inside <code>{ }</code> only runs if the condition in <code>( )</code> is truthy. If it's not, that block is skipped entirely.</p>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">else and else if</div>
+        <p><code>else</code> runs when all previous conditions are false — it's your catch-all fallback. <code>else if</code> lets you check another condition before falling back. You can chain as many <code>else if</code> blocks as you need.</p>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">Scope</div>
+        <p>Variables created inside <code>{ }</code> only exist inside those braces. This is called <strong>block scope</strong>. If you create a variable inside an <code>if</code> block, you can't use it outside. To use a variable in multiple branches, create it <em>before</em> the if-statement.</p>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">Ternary Operator — The One-Liner</div>
+        <p>A shortcut for simple if-else that fits on one line. Syntax: <code>condition ? value_if_true : value_if_false</code>. Great for simple cases, but don't overuse it — complex ternaries are hard to read.</p>
       </div>
 
       <div class="code-block">
         <div class="code-header"><span class="code-label">Structure</span><span class="code-lang">JS</span></div>
         <pre><span class="kw">if</span> (condition) {
-    <span class="cm">// runs when condition is true</span>
+    <span class="cm">// runs when condition is truthy</span>
+} <span class="kw">else if</span> (anotherCondition) {
+    <span class="cm">// runs if first failed, but this is truthy</span>
 } <span class="kw">else</span> {
-    <span class="cm">// runs when condition is false</span>
+    <span class="cm">// runs when everything above is false</span>
 }</pre>
       </div>
 
       <div class="code-block">
-        <div class="code-header"><span class="code-label">Example</span><span class="code-lang">JS</span></div>
+        <div class="code-header"><span class="code-label">Example — Age Check</span><span class="code-lang">JS</span></div>
         <pre><span class="kw">const</span> <span class="var">age</span> = <span class="num">15</span>;
 
-<span class="kw">if</span> (<span class="var">age</span> &gt;= <span class="num">18</span>) {
+<span class="kw">if</span> (<span class="var">age</span> >= <span class="num">18</span>) {
     <span class="log">console</span>.<span class="fn">log</span>(<span class="str">'You can drive!'</span>);
+} <span class="kw">else if</span> (<span class="var">age</span> >= <span class="num">16</span>) {
+    <span class="log">console</span>.<span class="fn">log</span>(<span class="str">'You can get a learner permit.'</span>);
 } <span class="kw">else</span> {
-    <span class="log">console</span>.<span class="fn">log</span>(<span class="str">'Too young!'</span>);
+    <span class="log">console</span>.<span class="fn">log</span>(<span class="str">'Too young for any of that!'</span>);
 }</pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><span class="code-label">Example — Ternary Operator</span><span class="code-lang">JS</span></div>
+        <pre><span class="cm">// Long way (if-else)</span>
+<span class="kw">let</span> <span class="var">status</span>;
+<span class="kw">if</span> (<span class="var">age</span> >= <span class="num">18</span>) {
+    <span class="var">status</span> = <span class="str">'adult'</span>;
+} <span class="kw">else</span> {
+    <span class="var">status</span> = <span class="str">'minor'</span>;
+}
+
+<span class="cm">// Short way (ternary)</span>
+<span class="kw">const</span> <span class="var">status2</span> = <span class="var">age</span> >= <span class="num">18</span> ? <span class="str">'adult'</span> : <span class="str">'minor'</span>;
+<span class="log">console</span>.<span class="fn">log</span>(<span class="var">status2</span>);</pre>
       </div>
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Tip:</strong> Be sure to show them the different outputs. Change the age to 20 and watch the message change. This is the first time the code "thinks".</span>
+        <span><strong>👨‍🏫 Teacher:</strong> Use the traffic light analogy first. Then build the age example live — change the number and run it repeatedly: "See how the output changes based on the value? The code is thinking." Show scope by creating a variable inside the <code>if</code> block and trying to log it outside — it'll throw an error. This is an important lesson. Leave the ternary for last — some students find it elegant, others find it confusing at first. Both are fine.</span>
       </div>
 
       <div class="exercises">
@@ -646,65 +1175,73 @@ console.log(typeof '5'); // 'string'</code></pre></div>
 
         <div class="exercise">
           <div class="exercise-num">06 · 01</div>
-          <div class="exercise-text">Create a variable <code>hour = 14</code>. If the hour is between 6 and 12, log "Good morning!". If not, log "Good afternoon!".</div>
+          <div class="exercise-text">Create <code>const hour = 14</code>. If the hour is less than 12, log "Good morning!". If less than 18, log "Good afternoon!". Otherwise, log "Good evening!".</div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>const hour = 14;
-if (hour &gt;= 6 &amp;&amp; hour &lt;= 12) {
+if (hour < 12) {
   console.log('Good morning!');
-} else {
+} else if (hour < 18) {
   console.log('Good afternoon!');
+} else {
+  console.log('Good evening!');
 }</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">06 · 02</div>
-          <div class="exercise-text">Age Check: If age is 65 or older, log "You are a senior". If not, log "You are not a senior".</div>
+          <div class="exercise-text">Create <code>const age = 70</code>. If age is 65 or older, log "Senior discount applies." Otherwise log "Full price."</div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>const age = 70;
-if (age &gt;= 65) {
-  console.log('You are a senior');
+if (age >= 65) {
+  console.log('Senior discount applies.');
 } else {
-  console.log('You are not a senior');
+  console.log('Full price.');
 }</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">06 · 03</div>
-          <div class="exercise-text">Discount Calculator: A product costs $10. If the user is a senior (65+), they get it for free. If not, they pay $10. Log the final price.</div>
+          <div class="exercise-text">Grade Calculator: Create <code>const score = 85</code>. Log the grade: 90+ → "A", 80+ → "B", 70+ → "C", 60+ → "D", else → "F".</div>
           <span class="tag tag-medium">Medium</span>
-          <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
-          <div class="hint">Use the age variable from the previous exercise.</div>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>const age = 70;
-if (age &gt;= 65) {
-  console.log('Price: $0');
+          <div class="solution"><pre><code>const score = 85;
+if (score >= 90) {
+  console.log('A');
+} else if (score >= 80) {
+  console.log('B');
+} else if (score >= 70) {
+  console.log('C');
+} else if (score >= 60) {
+  console.log('D');
 } else {
-  console.log('Price: $10');
+  console.log('F');
 }</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">06 · 04</div>
-          <div class="exercise-text">Number Guess: Create a variable <code>secret = 7</code>. Create <code>let guess = 5</code>. If <code>guess</code> equals <code>secret</code>, log "Correct!". If not, log "Incorrect!".</div>
+          <div class="exercise-text">Number Guess: Create <code>const secret = 7</code> and <code>let guess = 5</code>. If guess equals secret, log "Correct! 🎉". If guess is lower, log "Too low!". If higher, log "Too high!".</div>
           <span class="tag tag-medium">Medium</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>const secret = 7;
 let guess = 5;
 if (guess === secret) {
-  console.log('Correct!');
+  console.log('Correct! 🎉');
+} else if (guess < secret) {
+  console.log('Too low!');
 } else {
-  console.log('Incorrect!');
+  console.log('Too high!');
 }</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">06 · 05</div>
-          <div class="exercise-text">Even or Odd: Create a variable <code>num = 8</code>. (Advanced Math: <code>num % 2 === 0</code> means it's even). If it's even, log "Even". If not, log "Odd".</div>
-          <span class="tag tag-hard">Hard</span>
+          <div class="exercise-text">Even or Odd: Create <code>const num = 8</code>. Use <code>%</code> to check if the number is even or odd. If even, log "Even". If odd, log "Odd". Try both 8 and 7.</div>
+          <span class="tag tag-medium">Medium</span>
           <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
-          <div class="hint"><code>%</code> (Modulus) gives the remainder of a division.</div>
+          <div class="hint"><code>num % 2 === 0</code> means the number divides evenly by 2 (so it's even).</div>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>const num = 8;
 if (num % 2 === 0) {
@@ -716,17 +1253,46 @@ if (num % 2 === 0) {
 
         <div class="exercise">
           <div class="exercise-num">06 · 06</div>
-          <div class="exercise-text"><strong>Bonus:</strong> Use <code>prompt()</code> to ask "What is your name?". If the name is exactly yours, show "Welcome, Boss!". If not, show "Access Denied".</div>
+          <div class="exercise-text">Use <code>prompt()</code> to ask the user for their name. If the name matches yours exactly, show "Welcome, Boss! 👑". Otherwise, show "Access Denied ❌".</div>
           <span class="tag tag-hard">Hard</span>
           <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
-          <div class="hint"><code>prompt('Question')</code> pops up a box to type in. Use an <code>alert()</code> inside the <code>if</code>.</div>
+          <div class="hint"><code>const name = prompt('Enter your name');</code> stores whatever the user types.</div>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>const name = prompt('What is your name?');
-if (name === 'Bolaji') {
-  alert('Welcome, Boss!');
+if (name === 'Ada') {
+  alert('Welcome, Boss! 👑');
 } else {
-  alert('Access Denied');
+  alert('Access Denied ❌');
 }</code></pre></div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-num">06 · 07</div>
+          <div class="exercise-text"><strong>Ternary Challenge:</strong> Rewrite this using a ternary: <code>if (cartTotal > 5000) { discount = 0.10; } else { discount = 0; }</code></div>
+          <span class="tag tag-hard">Hard</span>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>const cartTotal = 6000;
+const discount = cartTotal > 5000 ? 0.10 : 0;
+console.log(discount); // 0.10</code></pre></div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-num">06 · 08</div>
+          <div class="exercise-text"><strong>Scope trap:</strong> Try creating a variable called <code>result</code> inside an if block, then log it outside. What error do you get? Now fix it by declaring <code>let result</code> before the if-statement.</div>
+          <span class="tag tag-hard">Hard</span>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>// ❌ This will error:
+if (true) {
+  const result = 'hello';
+}
+console.log(result); // ReferenceError: result is not defined
+
+// ✅ Fix — declare outside:
+let result;
+if (true) {
+  result = 'hello';
+}
+console.log(result); // 'hello'</code></pre></div>
         </div>
       </div>
     </div>
@@ -735,192 +1301,338 @@ if (name === 'Bolaji') {
     <div class="section" id="s7">
       <div class="section-header">
         <span class="section-num">07</span>
-        <span class="section-title">Logical Operators Deep Dive</span>
+        <span class="section-title">Logical Operators</span>
         <span class="section-time"><i data-lucide="clock"></i> ~15 min</span>
       </div>
 
+      <div class="timing-bar">
+        <span class="timing-pill concept-pill">~6 min concept</span>
+        <span class="timing-pill exercise-pill">~9 min exercises</span>
+      </div>
+
+      <div class="analogy">
+        <span class="emoji">🎭</span> <strong>The Analogy:</strong> <strong>AND (&&)</strong> = The bouncer at the VIP section. "You need a wristband AND you must be on the list." Both conditions must be true. <strong>OR (||)</strong> = The door at the side entrance. "You get in if you're a VIP OR if you're with a VIP." Either condition works. <strong>NOT (!)</strong> = A flip. "Not raining" means it's sunny.
+      </div>
+
       <div class="concept">
-        <div class="concept-title">&& (AND) | || (OR) | ! (NOT)</div>
-        <p>Operators allow you to combine conditions. <strong>AND</strong> requires everything to be true. <strong>OR</strong> requires only one. <strong>NOT</strong> flips the truth.</p>
+        <div class="concept-title">&& (AND)</div>
+        <p>Returns <code>true</code> only if <strong>both</strong> sides are true. If either side is false, the whole thing is false.</p>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">|| (OR)</div>
+        <p>Returns <code>true</code> if <strong>either</strong> side is true. Only returns false if both sides are false.</p>
+      </div>
+
+      <div class="concept">
+        <div class="concept-title">! (NOT)</div>
+        <p>Flips a boolean. <code>!true</code> = <code>false</code>. <code>!false</code> = <code>true</code>. Useful for checking the opposite of a condition without writing a whole comparison.</p>
       </div>
 
       <div class="code-block">
         <div class="code-header"><span class="code-label">Truth Table</span><span class="code-lang">JS</span></div>
-        <pre><span class="bool">true</span> && <span class="bool">true</span>   <span class="cm">// true</span>
-<span class="bool">true</span> && <span class="bool">false</span>  <span class="cm">// false</span>
-<span class="bool">true</span> || <span class="bool">false</span>  <span class="cm">// true</span>
-<span class="bool">false</span> || <span class="bool">false</span> <span class="cm">// false</span>
-!<span class="bool">true</span>           <span class="cm">// false</span></pre>
+        <pre><span class="cm">// AND — both must be true</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">true</span>  && <span class="kw">true</span>);   <span class="cm">// true</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">true</span>  && <span class="kw">false</span>);  <span class="cm">// false</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">false</span> && <span class="kw">false</span>);  <span class="cm">// false</span>
+
+<span class="cm">// OR — either can be true</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">true</span>  || <span class="kw">false</span>);  <span class="cm">// true</span>
+<span class="log">console</span>.<span class="fn">log</span>(<span class="kw">false</span> || <span class="kw">false</span>);  <span class="cm">// false</span>
+
+<span class="cm">// NOT — flips it</span>
+<span class="log">console</span>.<span class="fn">log</span>(!<span class="kw">true</span>);            <span class="cm">// false</span>
+<span class="log">console</span>.<span class="fn">log</span>(!<span class="kw">false</span>);           <span class="cm">// true</span>
+
+<span class="cm">// Real example: Club entry</span>
+<span class="kw">const</span> <span class="var">age</span> = <span class="num">20</span>;
+<span class="kw">const</span> <span class="var">hasTicket</span> = <span class="kw">true</span>;
+<span class="kw">if</span> (<span class="var">age</span> >= <span class="num">18</span> && <span class="var">hasTicket</span>) {
+    <span class="log">console</span>.<span class="fn">log</span>(<span class="str">'Welcome to the club!'</span>);
+}</pre>
       </div>
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> Use the "Club Entry" analogy. AND = "You need a ticket AND you must be 18+". OR = "You get in if you're a VIP OR if you're with a VIP."</span>
+        <span><strong>👨‍🏫 Teacher:</strong> Walk through each operator with real-world examples. For AND: "To open your bank account online, you need your password AND your OTP." For OR: "You can pay with your card OR cash." For NOT: "If <em>not</em> logged in, show the login page." Then ask her to predict the truth table before running it — this builds the mental model fast.</span>
       </div>
 
       <div class="exercises">
-        <div class="exercises-header">Exercises — Logical Ops</div>
+        <div class="exercises-header">Exercises — Logical Operators</div>
 
         <div class="exercise">
           <div class="exercise-num">07 · 01</div>
-          <div class="exercise-text">You are allowed to enter the club if you are 18+ AND you have a ticket. Create variables <code>hasTicket = true</code> and <code>age = 20</code>. Log "Welcome" if both are true.</div>
+          <div class="exercise-text">Club entry: <code>const age = 20</code>, <code>const hasTicket = true</code>. You can enter if you're 18+ AND have a ticket. Log "Welcome!" or "Sorry, no entry."</div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>const age = 20;
 const hasTicket = true;
-if (age &gt;= 18 && hasTicket) {
-  console.log('Welcome');
+if (age >= 18 && hasTicket) {
+  console.log('Welcome!');
+} else {
+  console.log('Sorry, no entry.');
 }</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">07 · 02</div>
-          <div class="exercise-text">A discount applies if it is 'Black Friday' OR if you have a 'Discount Code'. Log "Discount!" if either is true.</div>
+          <div class="exercise-text">Sale discount: Create <code>const isBlackFriday = false</code> and <code>const hasCode = true</code>. A discount applies if it's Black Friday OR the customer has a discount code. Log whether they get a discount.</div>
           <span class="tag tag-easy">Easy</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>const isBlackFriday = false;
 const hasCode = true;
 if (isBlackFriday || hasCode) {
-  console.log('Discount!');
+  console.log('Discount applied!');
+} else {
+  console.log('No discount available.');
 }</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">07 · 03</div>
-          <div class="exercise-text">Check if a number is between 10 and 20 (inclusive). Create <code>num = 15</code>.</div>
+          <div class="exercise-text">Range check: Create <code>const num = 15</code>. Log "In range" if num is between 10 and 20 (inclusive).</div>
           <span class="tag tag-medium">Medium</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>const num = 15;
-if (num &gt;= 10 && num &lt;= 20) {
+if (num >= 10 && num <= 20) {
   console.log('In range');
+} else {
+  console.log('Out of range');
 }</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">07 · 04</div>
-          <div class="exercise-text">Logical NOT: If <code>!isRaining</code> is true, log "Go outside!". (Assume <code>isRaining = false</code>).</div>
+          <div class="exercise-text">NOT operator: Create <code>const isRaining = false</code>. If it is NOT raining, log "Go outside!". Otherwise log "Stay home."</div>
           <span class="tag tag-medium">Medium</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>const isRaining = false;
 if (!isRaining) {
   console.log('Go outside!');
+} else {
+  console.log('Stay home.');
 }</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">07 · 05</div>
-          <div class="exercise-text">Complex logic: You can skip school if it's "Weekend" OR ("Holiday" AND "No Exams"). Create the variables and write the if-statement.</div>
+          <div class="exercise-text">Multi-condition: A user can skip school if it's a weekend OR (it's a holiday AND there are no exams). Create <code>isWeekend</code>, <code>isHoliday</code>, <code>hasExams</code> variables and write the logic.</div>
           <span class="tag tag-hard">Hard</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>const isWeekend = false;
 const isHoliday = true;
 const hasExams = false;
 if (isWeekend || (isHoliday && !hasExams)) {
-  console.log('Stay home!');
+  console.log('No school today!');
+} else {
+  console.log('See you in class.');
+}</code></pre></div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-num">07 · 06</div>
+          <div class="exercise-text">ATM check: A withdrawal is allowed if: balance is enough AND account is not blocked AND daily limit hasn't been reached. Create all three variables and write the condition.</div>
+          <span class="tag tag-hard">Hard</span>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>const balance = 5000;
+const withdrawAmount = 2000;
+const isBlocked = false;
+const dailyLimitReached = false;
+
+if (balance >= withdrawAmount && !isBlocked && !dailyLimitReached) {
+  console.log('Withdrawal approved ✓');
+} else {
+  console.log('Transaction declined ✗');
 }</code></pre></div>
         </div>
       </div>
     </div>
 
-    <!-- SECTION 08: ROCK PAPER SCISSORS PROJECT -->
+    <!-- SECTION 08: ROCK PAPER SCISSORS -->
     <div class="section" id="s8">
       <div class="section-header">
         <span class="section-num">08</span>
-        <span class="section-title">Rock Paper Scissors Project</span>
+        <span class="section-title">🎮 Rock Paper Scissors — Final Project</span>
         <span class="section-time"><i data-lucide="clock"></i> ~40 min</span>
       </div>
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> Climax Project! Build this step-by-step. Talk through the logic before typing. This combines random numbers, variables, and if-statements.</span>
+        <span><strong>👨‍🏫 Teacher:</strong> This is the climax! Everything she's learned — variables, strings, numbers, booleans, if-statements, Math.random() — all comes together right here. Don't rush. Talk through the plan before writing any code. Ask her: "What steps do we need to build this game?" Make her think through it. Then build it step by step, testing each step as you go. The moment it works for the first time is the highlight of the session.</span>
+      </div>
+
+      <div class="analogy">
+        <span class="emoji">🎯</span> <strong>The Plan (think before you code):</strong> We click a button → JavaScript makes the computer pick randomly → We compare both moves → We show who won. That's four steps. Let's build them one at a time.
+      </div>
+
+      <div class="step-flow">
+        <div class="step-item"><span class="step-num">Step 1</span><div class="step-text">Generate a random number between 0 and 1 using <code>Math.random()</code></div></div>
+        <div class="step-item"><span class="step-num">Step 2</span><div class="step-text">Map that number to a move: 0–1/3 = Rock, 1/3–2/3 = Paper, 2/3–1 = Scissors</div></div>
+        <div class="step-item"><span class="step-num">Step 3</span><div class="step-text">Create 3 buttons (Rock, Paper, Scissors) with onclick handlers</div></div>
+        <div class="step-item"><span class="step-num">Step 4</span><div class="step-text">Compare the player's move with the computer's move and determine the result</div></div>
+        <div class="step-item"><span class="step-num">Step 5</span><div class="step-text">Show the result in an alert with a full message</div></div>
       </div>
 
       <div class="concept">
-        <div class="concept-title">The Game Logic</div>
-        <p>1. Computer picks random number. 2. Map 0-1/3 to Rock, 1/3-2/3 to Paper, etc. 3. Compare with player choice. 4. Log the result.</p>
+        <div class="concept-title">Randomization Strategy</div>
+        <p><code>Math.random()</code> gives a number from 0 (inclusive) to 1 (exclusive). We need to map that to one of three moves. Divide the 0–1 range into thirds:</p>
+        <p style="margin-top:8px">0 to 1/3 → Rock &nbsp;|&nbsp; 1/3 to 2/3 → Paper &nbsp;|&nbsp; 2/3 to 1 → Scissors</p>
       </div>
 
       <div class="code-block">
-        <div class="code-header"><span class="code-label">Step 1: Computer Move</span><span class="code-lang">JS</span></div>
+        <div class="code-header"><span class="code-label">Step 1 & 2: Computer Move</span><span class="code-lang">JS</span></div>
         <pre><span class="kw">const</span> <span class="var">randomNumber</span> = <span class="var">Math</span>.<span class="fn">random</span>();
 <span class="kw">let</span> <span class="var">computerMove</span> = <span class="str">''</span>;
 
-<span class="kw">if</span> (<span class="var">randomNumber</span> &gt;= <span class="num">0</span> && <span class="var">randomNumber</span> &lt; <span class="num">1</span>/<span class="num">3</span>) {
-    <span class="var">computerMove</span> = <span class="str">'rock'</span>;
-} <span class="kw">else</span> <span class="kw">if</span> (<span class="var">randomNumber</span> &gt;= <span class="num">1</span>/<span class="num">3</span> && <span class="var">randomNumber</span> &lt; <span class="num">2</span>/<span class="num">3</span>) {
-    <span class="var">computerMove</span> = <span class="str">'paper'</span>;
+<span class="kw">if</span> (<span class="var">randomNumber</span> >= <span class="num">0</span> && <span class="var">randomNumber</span> < <span class="num">1</span>/<span class="num">3</span>) {
+    <span class="var">computerMove</span> = <span class="str">'Rock'</span>;
+} <span class="kw">else if</span> (<span class="var">randomNumber</span> >= <span class="num">1</span>/<span class="num">3</span> && <span class="var">randomNumber</span> < <span class="num">2</span>/<span class="num">3</span>) {
+    <span class="var">computerMove</span> = <span class="str">'Paper'</span>;
 } <span class="kw">else</span> {
-    <span class="var">computerMove</span> = <span class="str">'scissors'</span>;
+    <span class="var">computerMove</span> = <span class="str">'Scissors'</span>;
 }
-<span class="log">console</span>.<span class="fn">log</span>(<span class="var">computerMove</span>);</pre>
+
+<span class="log">console</span>.<span class="fn">log</span>(<span class="str">`Computer picked: ${<span class="var">computerMove</span>}`</span>);</pre>
       </div>
 
       <div class="code-block">
-        <div class="code-header"><span class="code-label">Step 2: Comparison (Rock Button)</span><span class="code-lang">JS</span></div>
-        <pre><span class="kw">if</span> (<span class="var">computerMove</span> === <span class="str">'rock'</span>) {
-    <span class="var">result</span> = <span class="str">'Tie.'</span>;
-} <span class="kw">else</span> <span class="kw">if</span> (<span class="var">computerMove</span> === <span class="str">'paper'</span>) {
-    <span class="var">result</span> = <span class="str">'You lose.'</span>;
-} <span class="kw">else</span> {
-    <span class="var">result</span> = <span class="str">'You win.'</span>;
-}
-<span class="fn">alert</span>(<span class="str">`You picked rock. Computer picked ${<span class="var">computerMove</span>}. ${<span class="var">result</span>}`</span>);</pre>
+        <div class="code-header"><span class="code-label">Step 3: HTML Buttons</span><span class="code-lang">HTML</span></div>
+        <pre>&lt;button onclick="playGame('Rock')"&gt;🪨 Rock&lt;/button&gt;
+&lt;button onclick="playGame('Paper')"&gt;📄 Paper&lt;/button&gt;
+&lt;button onclick="playGame('Scissors')"&gt;✂️ Scissors&lt;/button&gt;</pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><span class="code-label">Step 4 & 5: Full Game Logic (Rock)</span><span class="code-lang">JS</span></div>
+        <pre><span class="cm">// Put this inside a &lt;script&gt; tag in your HTML</span>
+<span class="kw">function</span> <span class="fn">playGame</span>(<span class="var">playerMove</span>) {
+  <span class="cm">// Step 1: Get computer's move</span>
+  <span class="kw">const</span> <span class="var">randomNumber</span> = <span class="var">Math</span>.<span class="fn">random</span>();
+  <span class="kw">let</span> <span class="var">computerMove</span> = <span class="str">''</span>;
+
+  <span class="kw">if</span> (<span class="var">randomNumber</span> < <span class="num">1</span>/<span class="num">3</span>) {
+    <span class="var">computerMove</span> = <span class="str">'Rock'</span>;
+  } <span class="kw">else if</span> (<span class="var">randomNumber</span> < <span class="num">2</span>/<span class="num">3</span>) {
+    <span class="var">computerMove</span> = <span class="str">'Paper'</span>;
+  } <span class="kw">else</span> {
+    <span class="var">computerMove</span> = <span class="str">'Scissors'</span>;
+  }
+
+  <span class="cm">// Step 2: Determine result</span>
+  <span class="kw">let</span> <span class="var">result</span> = <span class="str">''</span>;
+  <span class="kw">if</span> (<span class="var">playerMove</span> === <span class="var">computerMove</span>) {
+    <span class="var">result</span> = <span class="str">"It's a tie!"</span>;
+  } <span class="kw">else if</span> (
+    (<span class="var">playerMove</span> === <span class="str">'Rock'</span>     && <span class="var">computerMove</span> === <span class="str">'Scissors'</span>) ||
+    (<span class="var">playerMove</span> === <span class="str">'Paper'</span>    && <span class="var">computerMove</span> === <span class="str">'Rock'</span>)     ||
+    (<span class="var">playerMove</span> === <span class="str">'Scissors'</span> && <span class="var">computerMove</span> === <span class="str">'Paper'</span>)
+  ) {
+    <span class="var">result</span> = <span class="str">'You win! 🎉'</span>;
+  } <span class="kw">else</span> {
+    <span class="var">result</span> = <span class="str">'Computer wins! 🤖'</span>;
+  }
+
+  <span class="cm">// Step 3: Show the result</span>
+  <span class="fn">alert</span>(<span class="str">`You: ${<span class="var">playerMove</span>} | Computer: ${<span class="var">computerMove</span>}\n${<span class="var">result</span>}`</span>);
+}</pre>
+      </div>
+
+      <div class="teacher-note">
+        <i data-lucide="user"></i>
+        <span><strong>👨‍🏫 Teacher:</strong> Build this live, one step at a time. After Step 1 & 2, test it — refresh the page several times and confirm the computer picks different moves. After adding the buttons, click Rock a bunch of times and check all three outcomes appear. The full win condition logic is the trickiest part — walk her through reading it out loud: "Player is Rock AND computer is Scissors → player wins". When it works, let her play it for a minute. That's the reward for all the hard work today.</span>
       </div>
 
       <div class="exercises">
-        <div class="exercises-header">The Build Steps</div>
+        <div class="exercises-header">Build Steps — Rock Paper Scissors</div>
 
         <div class="exercise">
           <div class="exercise-num">08 · 01</div>
-          <div class="exercise-text">Step 1: Write the computer move logic and log it. Refresh the page 5 times — do you see all three moves?</div>
+          <div class="exercise-text"><strong>Test the randomizer:</strong> Write just the computer move logic and log it. Refresh the page 10 times — do you see all three moves appear at some point?</div>
           <span class="tag tag-easy">Easy</span>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">08 · 02</div>
-          <div class="exercise-text">Step 2: Add 3 buttons to your HTML: Rock, Paper, Scissors.</div>
+          <div class="exercise-text"><strong>Add the buttons:</strong> Create three buttons in your HTML: Rock, Paper, Scissors. Make each one log its move for now (e.g. <code>console.log('Player chose: Rock')</code>).</div>
           <span class="tag tag-easy">Easy</span>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>&lt;button onclick="console.log('Player chose: Rock')"&gt;🪨 Rock&lt;/button&gt;
+&lt;button onclick="console.log('Player chose: Paper')"&gt;📄 Paper&lt;/button&gt;
+&lt;button onclick="console.log('Player chose: Scissors')"&gt;✂️ Scissors&lt;/button&gt;</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">08 · 03</div>
-          <div class="exercise-text">Step 3: Inside the Rock button's <code>onclick</code>, put Step 1's logic, then add the comparison logic.</div>
+          <div class="exercise-text"><strong>Connect it all:</strong> Combine the computer move logic + result logic into a function. Call it from the Rock button. Test until you see all three outcomes (win, lose, tie).</div>
           <span class="tag tag-hard">Hard</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>&lt;button onclick="
-  const randomNumber = Math.random();
-  let computerMove = '';
-  if (randomNumber &gt;= 0 &amp;&amp; randomNumber &lt; 1/3) {
-    computerMove = 'rock';
-  } else if (randomNumber &gt;= 1/3 &amp;&amp; randomNumber &lt; 2/3) {
-    computerMove = 'paper';
+          <div class="solution"><pre><code>&lt;button onclick="playGame('Rock')"&gt;🪨 Rock&lt;/button&gt;
+&lt;button onclick="playGame('Paper')"&gt;📄 Paper&lt;/button&gt;
+&lt;button onclick="playGame('Scissors')"&gt;✂️ Scissors&lt;/button&gt;
+
+&lt;script&gt;
+function playGame(playerMove) {
+  const r = Math.random();
+  let computerMove = r &lt; 1/3 ? 'Rock' : r &lt; 2/3 ? 'Paper' : 'Scissors';
+  let result;
+
+  if (playerMove === computerMove) {
+    result = "Tie!";
+  } else if (
+    (playerMove === 'Rock'     && computerMove === 'Scissors') ||
+    (playerMove === 'Paper'    && computerMove === 'Rock')     ||
+    (playerMove === 'Scissors' && computerMove === 'Paper')
+  ) {
+    result = 'You win! 🎉';
   } else {
-    computerMove = 'scissors';
+    result = 'Computer wins! 🤖';
   }
 
-  let result = '';
-  if (computerMove === 'rock') {
-    result = 'Tie.';
-  } else if (computerMove === 'paper') {
-    result = 'You lose.';
-  } else if (computerMove === 'scissors') {
-    result = 'You win.';
-  }
-
-  alert(`You picked rock. Computer picked ${computerMove}. ${result}`);
-"&gt;Rock&lt;/button&gt;</code></pre></div>
+  alert(`You: ${playerMove} | Computer: ${computerMove}\n${result}`);
+}
+&lt;/script&gt;</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">08 · 04</div>
-          <div class="exercise-text">Step 4: Repeat for Paper and Scissors buttons with their own comparison logic.</div>
+          <div class="exercise-text"><strong>Make it display on the page:</strong> Instead of alert, update the page with <code>document.body.innerHTML</code> or a specific element to show the result more nicely.</div>
           <span class="tag tag-hard">Hard</span>
+          <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
+          <div class="hint">Add a <code>&lt;div id="result"&gt;&lt;/div&gt;</code> to your HTML. Then in the function: <code>document.getElementById('result').innerHTML = result;</code></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">08 · 05</div>
-          <div class="exercise-text"><strong>Final Challenge:</strong> Can you make the game keep a score? (Hint: Use <code>let score = { wins: 0, losses: 0, ties: 0 }</code> outside the buttons).</div>
+          <div class="exercise-text"><strong>Scoreboard:</strong> Add a score counter. Create <code>let wins = 0, losses = 0, ties = 0</code> outside the function. Update them inside the function and display after every game.</div>
           <span class="tag tag-extreme">Extreme</span>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>&lt;script&gt;
+let wins = 0, losses = 0, ties = 0;
+
+function playGame(playerMove) {
+  const r = Math.random();
+  const computerMove = r &lt; 1/3 ? 'Rock' : r &lt; 2/3 ? 'Paper' : 'Scissors';
+  let result;
+
+  if (playerMove === computerMove) {
+    result = "Tie!"; ties++;
+  } else if (
+    (playerMove === 'Rock'     && computerMove === 'Scissors') ||
+    (playerMove === 'Paper'    && computerMove === 'Rock')     ||
+    (playerMove === 'Scissors' && computerMove === 'Paper')
+  ) {
+    result = 'You win! 🎉'; wins++;
+  } else {
+    result = 'Computer wins! 🤖'; losses++;
+  }
+
+  document.getElementById('result').innerHTML = `
+    &lt;p&gt;You: ${playerMove} | Computer: ${computerMove}&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;${result}&lt;/strong&gt;&lt;/p&gt;
+    &lt;p&gt;Score — Wins: ${wins} | Losses: ${losses} | Ties: ${ties}&lt;/p&gt;
+  `;
+}
+&lt;/script&gt;</code></pre></div>
         </div>
       </div>
     </div>
@@ -930,22 +1642,59 @@ if (isWeekend || (isHoliday && !hasExams)) {
       <div class="section-header">
         <span class="section-num">★</span>
         <span class="section-title">Challenge Bank</span>
+        <span class="section-time"><i data-lucide="clock"></i> Extra time</span>
       </div>
-      <div class="teacher-note"><i data-lucide="user"></i><span>Extra credit for the early finishers! These are unguided.</span></div>
-      
+
+      <div class="teacher-note">
+        <i data-lucide="user"></i>
+        <span><strong>👨‍🏫 Teacher:</strong> These are for early finishers or if you have time at the end. They're unguided — no hints, no solutions. The goal is for her to sit with a problem and figure it out. Encourage her to think out loud. Mistakes are good here. Just keep the energy up!</span>
+      </div>
+
       <div class="exercises">
-        <div class="exercise"><div class="exercise-text"><strong>Temperature Converter:</strong> Build a button that asks for Kelvin and logs Celsius (Celsius = Kelvin - 273).</div><span class="tag tag-hard">Project</span></div>
-        <div class="exercise"><div class="exercise-text"><strong>BMI Calculator:</strong> Ask for weight (kg) and height (m). Log the BMI (weight / (height * height)).</div><span class="tag tag-hard">Project</span></div>
-        <div class="exercise"><div class="exercise-text"><strong>Coin Flip:</strong> Use <code>Math.random()</code>. 0-0.5 = Heads, 0.5-1 = Tails. Log the result.</div><span class="tag tag-hard">Project</span></div>
-        <div class="exercise"><div class="exercise-text"><strong>Grade Calculator:</strong> Ask for a score (0-100). If 90+ "A", 80+ "B", 70+ "C", else "F".</div><span class="tag tag-hard">Project</span></div>
-        <div class="exercise"><div class="exercise-text"><strong>Leap Year:</strong> Ask for a year. Check if it's divisible by 4.</div><span class="tag tag-hard">Project</span></div>
-        <div class="exercise"><div class="exercise-text"><strong>Square Root:</strong> Ask for a number and log its square root using <code>Math.sqrt()</code>.</div><span class="tag tag-medium">Project</span></div>
-        <div class="exercise"><div class="exercise-text"><strong>Shouter:</strong> Ask for a name and log it in all CAPS using <code>.toUpperCase()</code>.</div><span class="tag tag-easy">Project</span></div>
-        <div class="exercise"><div class="exercise-text"><strong>Absolute Value:</strong> Calculate the difference between two numbers and ensure it's positive using <code>Math.abs()</code>.</div><span class="tag tag-medium">Project</span></div>
-        <div class="exercise"><div class="exercise-text"><strong>Tip Calculator:</strong> Ask for the bill amount and log a 15% tip.</div><span class="tag tag-medium">Project</span></div>
-        <div class="exercise"><div class="exercise-text"><strong>Reverse String:</strong> Ask for a word and log it backwards (Advanced!).</div><span class="tag tag-extreme">Project</span></div>
-        <div class="exercise"><div class="exercise-text"><strong>Vowel Counter:</strong> Count how many vowels are in a string.</div><span class="tag tag-extreme">Project</span></div>
-        <div class="exercise"><div class="exercise-text"><strong>Currency Converter:</strong> Ask for amount in USD and log Naira (use 1500 as rate).</div><span class="tag tag-hard">Project</span></div>
+        <div class="exercise">
+          <div class="exercise-text"><strong>🌡 Temperature Converter:</strong> Create a button that uses <code>prompt()</code> to ask for a temperature in Celsius. Convert it to Fahrenheit (F = C × 9/5 + 32) and log the result.</div>
+          <span class="tag tag-hard">Project</span>
+        </div>
+        <div class="exercise">
+          <div class="exercise-text"><strong>⚖️ BMI Calculator:</strong> Use <code>prompt()</code> to ask for weight (kg) and height (m). Calculate BMI = weight / (height × height). Log whether it's underweight (&lt;18.5), normal (18.5–24.9), or overweight (&gt;25).</div>
+          <span class="tag tag-hard">Project</span>
+        </div>
+        <div class="exercise">
+          <div class="exercise-text"><strong>🪙 Coin Flip:</strong> Use <code>Math.random()</code>. If less than 0.5 → "Heads 🪙", else → "Tails". Run it 5 times and log each result.</div>
+          <span class="tag tag-medium">Project</span>
+        </div>
+        <div class="exercise">
+          <div class="exercise-text"><strong>📅 Leap Year Checker:</strong> Ask for a year. A leap year is divisible by 4 (hint: use <code>%</code>). Log "Leap year" or "Not a leap year".</div>
+          <span class="tag tag-hard">Project</span>
+        </div>
+        <div class="exercise">
+          <div class="exercise-text"><strong>📣 Shouter:</strong> Ask for a name. Log it in ALL CAPS. (Hint: try <code>'hello'.toUpperCase()</code> in the console.)</div>
+          <span class="tag tag-easy">Project</span>
+        </div>
+        <div class="exercise">
+          <div class="exercise-text"><strong>💰 Tip Calculator:</strong> Ask for the bill amount. Calculate and log 10%, 15%, and 20% tips. Which would you leave?</div>
+          <span class="tag tag-medium">Project</span>
+        </div>
+        <div class="exercise">
+          <div class="exercise-text"><strong>💵 Currency Converter:</strong> Ask for an amount in USD. Convert to Naira (use ₦1,580 per $1). Log the result in the format: "$100 = ₦158,000".</div>
+          <span class="tag tag-medium">Project</span>
+        </div>
+        <div class="exercise">
+          <div class="exercise-text"><strong>📐 Square Root Challenge:</strong> Ask for a number. Log its square root using <code>Math.sqrt()</code>. What is the square root of 144?</div>
+          <span class="tag tag-easy">Project</span>
+        </div>
+        <div class="exercise">
+          <div class="exercise-text"><strong>🔑 Password Strength Checker:</strong> Create <code>const password = 'abc'</code>. Use <code>.length</code> to check: if less than 6 characters, log "Weak". If 6–10, log "Medium". If 11+, log "Strong".</div>
+          <span class="tag tag-hard">Project</span>
+        </div>
+        <div class="exercise">
+          <div class="exercise-text"><strong>🔢 FizzBuzz (Classic Interview Question):</strong> Create <code>const num = 15</code>. If divisible by 3 AND 5, log "FizzBuzz". If only by 3, "Fizz". If only by 5, "Buzz". Otherwise log the number. Try multiple values.</div>
+          <span class="tag tag-extreme">Project</span>
+        </div>
+        <div class="exercise">
+          <div class="exercise-text"><strong>🎲 Magic 8-Ball:</strong> Use <code>Math.random()</code> to randomly give one of three responses: "Yes!", "No!", or "Ask again later." every time you click a button.</div>
+          <span class="tag tag-extreme">Project</span>
+        </div>
       </div>
     </div>
 
@@ -955,42 +1704,77 @@ if (isWeekend || (isHoliday && !hasExams)) {
         <span class="section-num">🛒</span>
         <span class="section-title">Final Boss: Cart System</span>
       </div>
-      <div class="concept">
-        <p>Combining variables (let), shorthand (+=), interpolation, and if-statements to build a shopping cart display.</p>
+
+      <div class="teacher-note">
+        <i data-lucide="user"></i>
+        <span><strong>👨‍🏫 Teacher:</strong> This is the most real-world challenge in the guide. A shopping cart combines variables (let), shorthand operators, interpolation, booleans, and if-statements all at once. Use this if the Rock Paper Scissors went smoothly and you have energy left in the session.</span>
       </div>
+
+      <div class="concept">
+        <div class="concept-title">The Cart Problem</div>
+        <p>Build a simple cart counter with buttons. The user can add items, remove items, reset the cart, and see the cart summary. But it should have guards: can't go below 0, can't go above 10.</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><span class="code-label">Cart Starter</span><span class="code-lang">HTML</span></div>
+        <pre>&lt;script&gt;let quantity = 0;&lt;/script&gt;
+
+&lt;button onclick="quantity++; console.log(quantity)"&gt;+1&lt;/button&gt;
+&lt;button onclick="quantity--; console.log(quantity)"&gt;-1&lt;/button&gt;
+&lt;button onclick="quantity = 0; console.log('Cart cleared')"&gt;Reset&lt;/button&gt;
+&lt;button onclick="alert(quantity === 0 ? 'Cart is empty' : quantity + ' items in cart')"&gt;
+  View Cart
+&lt;/button&gt;</pre>
+      </div>
+
       <div class="exercises">
+        <div class="exercises-header">Cart Exercises</div>
+
         <div class="exercise">
           <div class="exercise-num">09 · 01</div>
-          <div class="exercise-text"><strong>The Increment Challenge:</strong> Create <code>let quantity = 0</code>. Add buttons for +1, +2, +3. Reset Cart button. Show Cart button. If quantity is 0, alert "Cart is empty".</div>
+          <div class="exercise-text"><strong>The Increment Challenge:</strong> Create the starter cart above. Make sure +1, -1, Reset, and View Cart all work. Check the console after each click.</div>
           <span class="tag tag-hard">Boss</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>&lt;script&gt;let q = 0;&lt;/script&gt;
-&lt;button onclick="q++"&gt;+1&lt;/button&gt;
-&lt;button onclick="q = 0"&gt;Reset&lt;/button&gt;
-&lt;button onclick="if(q === 0) alert('Empty'); else alert(q);"&gt;Show&lt;/button&gt;</code></pre></div>
+&lt;button onclick="q++; console.log('Cart:', q)"&gt;+1&lt;/button&gt;
+&lt;button onclick="q--; console.log('Cart:', q)"&gt;-1&lt;/button&gt;
+&lt;button onclick="q = 0; console.log('Cart cleared')"&gt;Reset&lt;/button&gt;
+&lt;button onclick="if(q === 0) alert('Cart is empty'); else alert(q + ' items')"&gt;View Cart&lt;/button&gt;</code></pre></div>
         </div>
+
         <div class="exercise">
           <div class="exercise-num">09 · 02</div>
-          <div class="exercise-text"><strong>The Limit Challenge:</strong> Add a maximum limit of 10. If the user clicks +1 and they already have 10, show alert "Too many!".</div>
+          <div class="exercise-text"><strong>The Maximum Limit:</strong> If the user clicks +1 and quantity is already 10, show an alert "Maximum 10 items reached!" instead of adding.</div>
           <span class="tag tag-hard">Boss</span>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>&lt;button onclick="if(q >= 10) { alert('Max 10 items!'); } else { q++; }"&gt;+1&lt;/button&gt;</code></pre></div>
         </div>
+
         <div class="exercise">
           <div class="exercise-num">09 · 03</div>
-          <div class="exercise-text"><strong>The Minimum Challenge:</strong> Add a -1 button. If the user clicks -1 and they have 0, show alert "Too little!".</div>
+          <div class="exercise-text"><strong>The Minimum Limit:</strong> If the user clicks -1 and quantity is already 0, show "Cart is already empty!" instead of going negative.</div>
           <span class="tag tag-hard">Boss</span>
         </div>
+
         <div class="exercise">
           <div class="exercise-num">09 · 04</div>
-          <div class="exercise-text"><strong>The Multi-Add Challenge:</strong> Create a button to double the current quantity.</div>
-          <span class="tag tag-hard">Boss</span>
+          <div class="exercise-text"><strong>The Price Display:</strong> Each item costs ₦1,500. Add a "Show Total" button that displays: <code>"5 items × ₦1,500 = ₦7,500"</code></div>
+          <span class="tag tag-extreme">Boss</span>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>&lt;button onclick="
+  const price = 1500;
+  const total = q * price;
+  alert(`${q} items × ₦${price} = ₦${total}`);
+"&gt;Show Total&lt;/button&gt;</code></pre></div>
         </div>
       </div>
     </div>
 
     <div class="divider"></div>
-    <div style="text-align:center; padding: 20px 0 40px; color: var(--muted); font-size: 13px;">
-      <div style="font-family:'Syne',sans-serif; font-size:18px; font-weight:700; color:var(--accent2); margin-bottom:8px;"><i data-lucide="party-popper"></i> You made it!</div>
-      Fundamentals covered. Next: Functions, Arrays, Loops.
+    <div style="text-align:center; padding: 20px 0 60px; color: var(--muted); font-size: 13px;">
+      <div style="font-family:'Syne',sans-serif; font-size:22px; font-weight:800; color:var(--accent2); margin-bottom:12px;">🎉 You made it through the fundamentals!</div>
+      <div style="margin-bottom:8px;">Next session: Functions, Arrays, Loops, and real DOM manipulation.</div>
+      <div style="color: var(--accent); font-size:12px;">Issue a certificate below to wrap things up ↓</div>
     </div>
 
   </div><!-- end content -->
@@ -1008,8 +1792,8 @@ if (isWeekend || (isHoliday && !hasExams)) {
     <button class="runner-close-btn" onclick="toggleRunner(false)"><i data-lucide="x"></i></button>
   </div>
   <div class="runner-body">
-    <textarea class="runner-editor" id="runnerEditor" placeholder="// Write JS here..."></textarea>
-    <div class="runner-output" id="runnerOutput"><div class="runner-output-line info">// Output here</div></div>
+    <textarea class="runner-editor" id="runnerEditor" placeholder="// Write JS here... (Ctrl+Enter to run)"></textarea>
+    <div class="runner-output" id="runnerOutput"><div class="runner-output-line info">// Output will appear here</div></div>
   </div>
 </div>
 
@@ -1029,13 +1813,11 @@ if (isWeekend || (isHoliday && !hasExams)) {
       </div>
       <button class="cert-close-btn" onclick="closeCertModal()"><i data-lucide="x"></i></button>
     </div>
-    
     <div class="cert-col-labels">
       <div class="cert-col-label">Student Name</div>
       <div class="cert-col-label">Email Address</div>
       <div></div>
     </div>
-
     <div class="cert-students-list" id="certStudentsList">
       <div class="cert-student-row">
         <input class="cert-input" type="text" placeholder="Full name" />
@@ -1043,7 +1825,6 @@ if (isWeekend || (isHoliday && !hasExams)) {
         <button class="cert-remove-btn" onclick="removeStudentRow(this)" title="Remove"><i data-lucide="x"></i></button>
       </div>
     </div>
-
     <button class="cert-add-btn" onclick="addStudentRow()">+ Add another student</button>
     <button class="cert-submit-btn" id="certSubmitBtn" onclick="issueCertificates()">Issue Certificates</button>
     <div class="cert-result" id="certResult"></div>

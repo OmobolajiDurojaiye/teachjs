@@ -607,4 +607,3 @@ pre {
 }
 .cert-result.success { display: block; background: rgba(94,231,176,0.1); color: var(--accent2); border: 1px solid rgba(94,231,176,0.2); }
 .cert-result.error { display: block; background: rgba(240,96,128,0.1); color: var(--accent4); border: 1px solid rgba(240,96,128,0.2); }
-
