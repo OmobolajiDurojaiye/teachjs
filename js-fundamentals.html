@@ -611,6 +611,135 @@
     .content { padding: 0 20px 60px; }
     .hero-meta { flex-wrap: wrap; gap: 12px; }
   }
+
+  /* -- RUNNER + CERT TOGGLE BUTTON ------------------- */
+  .runner-fab {
+    position: fixed; bottom: 24px; right: 24px;
+    z-index: 200; display: flex; gap: 10px; align-items: center;
+  }
+  .fab-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 10px 16px; border-radius: 10px; border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: all 0.15s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .fab-run { background: var(--accent); color: #fff; }
+  .fab-cert { background: var(--accent2); color: #0d0f14; }
+  .fab-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.5); }
+  .fab-btn svg { width:14px; height:14px; stroke:currentColor; stroke-width:2; fill:none; }
+
+  /* -- CODE RUNNER PANEL ----------------------------- */
+  .runner-panel {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 190;
+    background: var(--bg2); border-top: 1px solid var(--border2);
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.5);
+    transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column; max-height: 50vh;
+  }
+  .runner-panel.open { transform: translateY(0); }
+  .runner-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 16px; border-bottom: 1px solid var(--border);
+    background: var(--bg3); flex-shrink: 0;
+  }
+  .runner-header-left { display: flex; align-items: center; gap: 10px; }
+  .runner-title { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.5px; }
+  .runner-run-btn, .runner-clear-btn, .runner-close-btn {
+    padding: 4px 12px; border-radius: 6px; border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.1s;
+  }
+  .runner-run-btn { background: var(--accent); color: #fff; }
+  .runner-run-btn:hover { opacity: 0.85; }
+  .runner-clear-btn { background: rgba(255,255,255,0.07); color: var(--muted); }
+  .runner-clear-btn:hover { background: rgba(255,255,255,0.12); color: var(--text); }
+  .runner-close-btn { background: none; color: var(--muted); font-size: 18px; padding: 0 6px; cursor: pointer; border: none; }
+  .runner-close-btn:hover { color: var(--text); }
+  .runner-body { display: grid; grid-template-columns: 1fr 1fr; flex: 1; overflow: hidden; }
+  .runner-editor {
+    border: none; border-right: 1px solid var(--border);
+    background: var(--code-bg); color: var(--text);
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7;
+    padding: 14px 18px; resize: none; outline: none; overflow-y: auto;
+  }
+  .runner-output {
+    background: #0a0c11; padding: 14px 18px; overflow-y: auto;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7;
+  }
+  .runner-output-line { color: var(--accent2); margin-bottom: 2px; }
+  .runner-output-line.error { color: var(--accent4); }
+  .runner-output-line.info { color: var(--muted); font-style: italic; }
+  .try-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+    color: var(--accent); background: rgba(124,111,247,0.1);
+    border: 1px solid rgba(124,111,247,0.2); border-radius: 5px;
+    padding: 3px 9px; cursor: pointer; transition: all 0.15s;
+  }
+  .try-btn:hover { background: rgba(124,111,247,0.18); border-color: rgba(124,111,247,0.4); }
+
+  /* -- CERTIFICATE MODAL ----------------------------- */
+  .cert-overlay {
+    display: none; position: fixed; inset: 0; z-index: 300;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; padding: 24px;
+  }
+  .cert-overlay.open { display: flex; }
+  .cert-modal {
+    background: var(--bg2); border: 1px solid var(--border2); border-radius: 16px;
+    width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto;
+    padding: 28px 32px; box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  .cert-modal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
+  .cert-modal-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: -0.4px; }
+  .cert-modal-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .cert-close-btn { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; padding: 0 4px; line-height: 1; }
+  .cert-close-btn:hover { color: var(--text); }
+  .cert-col-labels { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; margin-bottom: 6px; }
+  .cert-col-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+  .cert-students-list { margin-bottom: 8px; }
+  .cert-student-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; margin-bottom: 8px; align-items: center; }
+  .cert-input {
+    background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px;
+    color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px;
+    padding: 9px 12px; outline: none; transition: border-color 0.15s; width: 100%;
+  }
+  .cert-input:focus { border-color: var(--accent); }
+  .cert-input::placeholder { color: var(--muted); }
+  .cert-remove-btn {
+    background: none; border: 1px solid var(--border2); border-radius: 6px;
+    color: var(--muted); cursor: pointer; padding: 7px 10px; font-size: 13px; line-height: 1; transition: all 0.1s;
+  }
+  .cert-remove-btn:hover { border-color: var(--accent4); color: var(--accent4); }
+  .cert-add-btn {
+    background: none; border: 1px dashed var(--border2); border-radius: 8px;
+    color: var(--muted); cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 13px; padding: 8px 14px; width: 100%; transition: all 0.15s; margin-bottom: 16px;
+  }
+  .cert-add-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .cert-submit-btn {
+    width: 100%; background: var(--accent2); color: #0d0f14; border: none;
+    border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+    padding: 13px; cursor: pointer; transition: all 0.15s;
+  }
+  .cert-submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .cert-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .cert-result { margin-top: 14px; padding: 12px 14px; border-radius: 8px; font-size: 13px; display: none; }
+  .cert-result.success { display: block; background: rgba(94,231,176,0.1); border: 1px solid rgba(94,231,176,0.25); color: var(--accent2); }
+  .cert-result.error { display: block; background: rgba(240,96,128,0.1); border: 1px solid rgba(240,96,128,0.25); color: var(--accent4); }
+  .completion-section {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 14px;
+    padding: 32px; margin-top: 40px; text-align: center;
+  }
+  .completion-section h3 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.4px; }
+  .completion-section p { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+  .completion-issue-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent2); color: #0d0f14; border: none; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+    padding: 12px 24px; cursor: pointer; transition: all 0.15s;
+  }
+  .completion-issue-btn:hover { opacity: 0.9; transform: translateY(-2px); }
 </style>
 </head>
 <body>
@@ -664,12 +793,12 @@
       </div>
 
       <div class="teacher-note">
-        <strong>👨‍🏫 Teacher:</strong> You lead each section. Explain the concept in your own words first, then type the example code live in VS Code, and let her guess/predict what will happen before running it. That's where learning clicks.
+        <strong>👨‍🏫 Teacher:</strong> You lead each section. Explain the concept in your own words first, then type the example code live in VS Code, and let your student guess/predict what will happen before running it. That's where learning clicks.
       </div>
 
       <div class="concept">
         <div class="concept-title">Session Flow</div>
-        <p>For each section: <strong>1)</strong> Explain the concept casually (use analogies). <strong>2)</strong> Show the code example. <strong>3)</strong> Do the easy exercises together. <strong>4)</strong> Let her attempt medium exercises solo. <strong>5)</strong> Do hard exercises as a team challenge.</p>
+        <p>For each section: <strong>1)</strong> Explain the concept casually (use analogies). <strong>2)</strong> Show the code example. <strong>3)</strong> Do the easy exercises together. <strong>4)</strong> Let your student attempt medium exercises solo. <strong>5)</strong> Do hard exercises as a team challenge.</p>
       </div>
 
       <div class="callout">
@@ -708,7 +837,7 @@
       </div>
 
       <div class="teacher-note">
-        <strong>👨‍🏫 Tip:</strong> Type the alert first, save the file, refresh Chrome. Watch her reaction. Then show console.log — explain "the console is where developers read messages, it's like a secret window."
+        <strong>👨‍🏫 Tip:</strong> Type the alert first, save the file, refresh Chrome. Watch their reaction. Then show console.log — explain "the console is where developers read messages, it's like a secret window."
       </div>
 
       <div class="exercises">
@@ -1536,12 +1665,12 @@ else console.log("You cannot ride.");</code></pre></div>
       </div>
 
       <div class="teacher-note">
-        <strong>👨‍🏫 This is the climax!</strong> Build this together from scratch. First, talk through the steps in English before writing any code. Let her write as much as possible. You guide, she types.
+        <strong>👨‍🏫 This is the climax!</strong> Build this together from scratch. First, talk through the steps in English before writing any code. Let your student write as much as possible. You guide, they type.
       </div>
 
       <div class="concept">
         <div class="concept-title">Step 1: Plan in English First</div>
-        <p>Before writing a single line of code, say out loud: <em>"When I click Rock, what needs to happen?"</em> Get her to describe it step by step. This is how real developers think.</p>
+        <p>Before writing a single line of code, say out loud: <em>"When I click Rock, what needs to happen?"</em> Get your student to describe it step by step. This is how real developers think.</p>
       </div>
 
       <div class="callout">
@@ -1606,7 +1735,7 @@ else console.log("You cannot ride.");</code></pre></div>
 
       <div class="concept">
         <div class="concept-title">Step 4: Complete the Other Buttons</div>
-        <p>The Paper and Scissors buttons have the same computer move logic. Only the result section changes. Let her write the Paper and Scissors button logic herself after you do Rock together.</p>
+        <p>The Paper and Scissors buttons have the same computer move logic. Only the result section changes. Let your student write the Paper and Scissors button logic after you do Rock together.</p>
       </div>
 
       <div class="code-block">
@@ -1687,7 +1816,7 @@ document.body.innerHTML = '\n  &lt;h2&gt;You picked Rock! 🪨&lt;/h2&gt;\n  &lt
         <span class="section-title">Mixed Challenge Bank</span>
       </div>
       <div class="teacher-note">
-        <strong>👨‍🏫 Use these anytime:</strong> When there's extra time, or when she finishes early and needs a stretch goal. These combine multiple concepts.
+        <strong>👨‍🏫 Use these anytime:</strong> When there's extra time, or when your student finishes early and needs a stretch goal. These combine multiple concepts.
       </div>
 
       <div class="exercises">
@@ -1773,7 +1902,7 @@ else console.log("guess1: Too low");</code></pre></div>
       </div>
 
       <div class="teacher-note">
-        <strong>👨‍🏫 Reference Project:</strong> Show her the cart-system.html you already built. Walk through it together. Then rebuild it with improvements below.
+        <strong>👨‍🏫 Reference Project:</strong> Show your student the cart-system.html you already built. Walk through it together. Then rebuild it with improvements below.
       </div>
 
       <div class="code-block">
@@ -1915,8 +2044,76 @@ else console.log("guess1: Too low");</code></pre></div>
       });
     });
     pre.parentNode.insertBefore(btn, pre.nextSibling);
+
+    // Add "Try it" button for solutions
+    const tryBtn = document.createElement('button');
+    tryBtn.className = 'try-btn';
+    tryBtn.style.cssText = 'display:inline-flex;margin-top:8px;margin-left:8px;';
+    tryBtn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg> Try it';
+    tryBtn.addEventListener('click', () => {
+      runnerEditor.value = pre.innerText.trim();
+      toggleRunner(true);
+      runnerOutput.innerHTML = '<div class="runner-output-line info">// Solution loaded. Press ▶ Run to execute</div>';
+    });
+    pre.parentNode.insertBefore(tryBtn, pre.nextSibling);
   });
 </script>
 
+
+<!-- -- CODE RUNNER PANEL -- -->
+<div class="runner-panel" id="runnerPanel">
+  <div class="runner-header">
+    <div class="runner-header-left">
+      <span class="runner-title">? JS Runner</span>
+      <button class="runner-run-btn" onclick="runCode()">? Run</button>
+      <button class="runner-clear-btn" onclick="clearRunner()">Clear</button>
+    </div>
+    <button class="runner-close-btn" onclick="toggleRunner(false)">?</button>
+  </div>
+  <div class="runner-body">
+    <textarea class="runner-editor" id="runnerEditor" placeholder="// Write or paste JavaScript here...&#10;console.log('Hello, world!');"></textarea>
+    <div class="runner-output" id="runnerOutput"><div class="runner-output-line info">// Output will appear here</div></div>
+  </div>
+</div>
+
+<!-- -- FLOATING ACTION BUTTONS -- -->
+<div class="runner-fab">
+  <button class="fab-btn fab-cert" onclick="openCertModal()">
+    <svg viewBox="0 0 24 24"><path d="M12 15l-2 5L9 14l-5-3 5-1 1-5 1 5 5 1-5 3z"/></svg>
+    Issue Certificate
+  </button>
+  <button class="fab-btn fab-run" onclick="toggleRunner(true)">
+    <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    Code Runner
+  </button>
+</div>
+
+<!-- -- CERTIFICATE MODAL -- -->
+<div class="cert-overlay" id="certOverlay">
+  <div class="cert-modal">
+    <div class="cert-modal-header">
+      <div>
+        <div class="cert-modal-title">?? Issue Certificates</div>
+        <div class="cert-modal-sub">Certificates will be emailed to students immediately via ProofDeck.</div>
+      </div>
+      <button class="cert-close-btn" onclick="closeCertModal()">?</button>
+    </div>
+    <div class="cert-col-labels">
+      <div class="cert-col-label">Student Name</div>
+      <div class="cert-col-label">Email Address</div>
+      <div></div>
+    </div>
+    <div class="cert-students-list" id="certStudentsList">
+      <div class="cert-student-row">
+        <input class="cert-input" type="text" placeholder="Full name" />
+        <input class="cert-input" type="email" placeholder="email@example.com" />
+        <button class="cert-remove-btn" onclick="removeStudentRow(this)" title="Remove">?</button>
+      </div>
+    </div>
+    <button class="cert-add-btn" onclick="addStudentRow()">+ Add another student</button>
+    <button class="cert-submit-btn" id="certSubmitBtn" onclick="issueCertificates()">Issue Certificates</button>
+    <div class="cert-result" id="certResult"></div>
+  </div>
+</div>
 </body>
 </html>
