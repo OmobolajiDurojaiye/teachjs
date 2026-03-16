@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TeachJS — Anyone Can Teach JavaScript</title>
+<meta name="description" content="Free, hands-on JavaScript teaching guides built for 1-on-1 sessions. No setup required. Just open and teach.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #0d0f14;
+    --bg2: #141720;
+    --bg3: #1a1e2a;
+    --card: #1e2230;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8eaf2;
+    --muted: #8a8fa8;
+    --accent: #7c6ff7;
+    --accent2: #5ee7b0;
+    --accent3: #f5a623;
+    --accent4: #f06080;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ───────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    background: rgba(13,15,20,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-logo .logo-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--accent);
+    color: #fff;
+    padding: 3px 9px;
+    border-radius: 6px;
+    letter-spacing: -0.3px;
+  }
+
+  .nav-logo .logo-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    color: var(--text);
+    letter-spacing: -0.4px;
+  }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity 0.15s, transform 0.15s;
+  }
+
+  .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* ── HERO ───────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,111,247,0.18) 0%, transparent 65%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(94,231,176,0.08) 0%, transparent 65%);
+    bottom: -100px; right: -100px;
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(124,111,247,0.12);
+    border: 1px solid rgba(124,111,247,0.2);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .hero-tag .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent2);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(42px, 6vw, 76px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -2.5px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .hero h1 .grad {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 40px;
+    line-height: 1.65;
+    position: relative;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 13px 26px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.15s;
+    box-shadow: 0 0 0 0 rgba(124,111,247,0.4);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(124,111,247,0.35);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 15px;
+    padding: 13px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 1px solid var(--border2);
+    transition: all 0.15s;
+  }
+
+  .btn-secondary:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+
+  .hero-stats {
+    position: relative;
+    display: flex;
+    gap: 40px;
+    margin-top: 72px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -1px;
+  }
+
+  .stat-num span { color: var(--accent); }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 2px;
+  }
+
+  /* ── FEATURES ───────────────────────────────────────── */
+  .features {
+    padding: 0 24px;
+    max-width: 900px;
+    margin: 0 auto 100px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .feature-item {
+    background: var(--bg2);
+    padding: 28px 24px;
+    transition: background 0.15s;
+  }
+
+  .feature-item:hover { background: var(--bg3); }
+
+  .feature-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .feature-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .feature-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── SECTION LABEL ─────────────────────────────────── */
+  .section-label {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .section-label .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .section-label h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--text);
+  }
+
+  /* ── COURSES ────────────────────────────────────────── */
+  .courses {
+    padding: 0 24px 100px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .course-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .course-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(124,111,247,0.06) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .course-card:hover { border-color: rgba(124,111,247,0.4); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+  .course-card:hover::before { opacity: 1; }
+
+  .course-card.coming-soon {
+    opacity: 0.5;
+    pointer-events: none;
+    border-style: dashed;
+  }
+
+  .course-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .course-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .course-icon.js { background: rgba(245,166,35,0.12); }
+  .course-icon.ts { background: rgba(94,231,176,0.12); }
+  .course-icon.re { background: rgba(124,111,247,0.12); }
+
+  .course-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .badge-live { background: rgba(94,231,176,0.12); color: var(--accent2); }
+  .badge-soon { background: rgba(255,255,255,0.05); color: var(--muted); }
+
+  .course-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.3px;
+    position: relative;
+  }
+
+  .course-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+    position: relative;
+  }
+
+  .course-meta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .course-meta-item {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .course-cta {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    position: relative;
+    transition: gap 0.15s;
+  }
+
+  .course-card:hover .course-cta { gap: 10px; }
+
+  /* ── HOW IT WORKS ────────────────────────────────────── */
+  .how {
+    padding: 0 24px 100px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .how-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .how-step {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .how-step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent3);
+    margin-bottom: 10px;
+  }
+
+  .how-step-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .how-step-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ── CTA BANNER ──────────────────────────────────────── */
+  .cta-banner {
+    max-width: 900px;
+    margin: 0 auto 100px;
+    padding: 0 24px;
+  }
+
+  .cta-inner {
+    background: linear-gradient(135deg, rgba(124,111,247,0.15) 0%, rgba(94,231,176,0.08) 100%);
+    border: 1px solid rgba(124,111,247,0.25);
+    border-radius: 18px;
+    padding: 52px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-inner::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,111,247,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-inner h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .cta-inner p {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--accent);
+  }
+
+  .footer-tagline {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .footer-right {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── RESPONSIVE ─────────────────────────────────────── */
+  @media (max-width: 640px) {
+    nav { padding: 0 20px; }
+    footer { padding: 28px 20px; }
+    .cta-inner { padding: 36px 24px; }
+    .hero-stats { gap: 28px; }
+  }
+
+  /* ── SCROLLBAR ──────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <span class="logo-badge">JS</span>
+    <span class="logo-name">TeachJS</span>
+  </a>
+  <a class="nav-cta" href="#courses">Browse Courses →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-tag">
+    <span class="dot"></span>
+    Free &amp; Open · No Login Required
+  </div>
+
+  <h1>Anyone Can<br><span class="grad">Teach JavaScript.</span></h1>
+
+  <p>Structured, hands-on teaching guides built for 1-on-1 sessions. Open a guide, sit with your student, and start teaching — no setup, no BS.</p>
+
+  <div class="hero-actions">
+    <a class="btn-primary" href="#courses">Browse Courses →</a>
+    <a class="btn-secondary" href="js-fundamentals.html">Preview: JS Basics</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">52<span>+</span></div>
+      <div class="stat-label">Exercises</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Topics Covered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3<span>hr</span></div>
+      <div class="stat-label">Session Length</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Setup Required</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Zero Setup</div>
+      <div class="feature-desc">Just open a guide in your browser and start. No installs, no accounts.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🎯</div>
+      <div class="feature-title">Teacher-First</div>
+      <div class="feature-desc">Every guide is written from the teacher's perspective with tips and timing.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🔐</div>
+      <div class="feature-title">Hidden Solutions</div>
+      <div class="feature-desc">Exercises have solutions hidden by default — reveal them when needed.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">📋</div>
+      <div class="feature-title">Copy-Ready Code</div>
+      <div class="feature-desc">Every code block has a one-click copy button for seamless flow.</div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="courses" id="courses">
+  <div class="section-label">
+    <span class="eyebrow">// Available Now</span>
+    <h2>Teaching Guides</h2>
+  </div>
+
+  <div class="courses-grid">
+
+    <!-- LIVE COURSE -->
+    <a class="course-card" href="js-fundamentals.html">
+      <div class="course-card-top">
+        <div class="course-icon js">📜</div>
+        <span class="course-badge badge-live">✦ Live</span>
+      </div>
+      <div class="course-title">JavaScript Fundamentals</div>
+      <div class="course-desc">From variables to Rock Paper Scissors. A complete first session guide for absolute beginners.</div>
+      <div class="course-meta">
+        <div class="course-meta-item">⏱ ~3 hours</div>
+        <div class="course-meta-item">📝 52 exercises</div>
+        <div class="course-meta-item">📚 8 topics</div>
+      </div>
+      <div class="course-cta">Start Teaching →</div>
+    </a>
+
+    <!-- COMING SOON -->
+    <div class="course-card coming-soon">
+      <div class="course-card-top">
+        <div class="course-icon ts">🔷</div>
+        <span class="course-badge badge-soon">Coming Soon</span>
+      </div>
+      <div class="course-title">JS Intermediate</div>
+      <div class="course-desc">Functions, arrays, loops, and DOM manipulation — the next session.</div>
+      <div class="course-meta">
+        <div class="course-meta-item">⏱ ~3 hours</div>
+        <div class="course-meta-item">📝 40+ exercises</div>
+      </div>
+      <div class="course-cta" style="color:var(--muted)">Coming Soon</div>
+    </div>
+
+    <div class="course-card coming-soon">
+      <div class="course-card-top">
+        <div class="course-icon re">⚛️</div>
+        <span class="course-badge badge-soon">Coming Soon</span>
+      </div>
+      <div class="course-title">Intro to React</div>
+      <div class="course-desc">Components, props, state, and your first real React app — taught from scratch.</div>
+      <div class="course-meta">
+        <div class="course-meta-item">⏱ ~4 hours</div>
+        <div class="course-meta-item">📝 50+ exercises</div>
+      </div>
+      <div class="course-cta" style="color:var(--muted)">Coming Soon</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="section-label">
+    <span class="eyebrow">// How it works</span>
+    <h2>Built for the Session</h2>
+  </div>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="how-step-num">01 ·</div>
+      <div class="how-step-title">Sit down together</div>
+      <div class="how-step-desc">Open the guide in one browser tab, open VS Code alongside it. That's all the setup.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">02 ·</div>
+      <div class="how-step-title">Follow the guide</div>
+      <div class="how-step-desc">Each section has a concept, a code example, teacher tips, and graded exercises.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">03 ·</div>
+      <div class="how-step-title">Let them try</div>
+      <div class="how-step-desc">Your student attempts the exercises. Reveal hints or solutions only when stuck.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">04 ·</div>
+      <div class="how-step-title">Build something real</div>
+      <div class="how-step-desc">Every guide ends with a real mini-project. They leave having built something.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="cta-inner">
+    <h2>Ready to teach?</h2>
+    <p>Pick up the JS Fundamentals guide and run your first session today.</p>
+    <a class="btn-primary" href="js-fundamentals.html">Open JS Fundamentals →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">TeachJS</div>
+    <div class="footer-tagline">Anyone Can Teach JavaScript.</div>
+  </div>
+  <div class="footer-right">Free forever · No login required</div>
+</footer>
+
+</body>
+</html>
