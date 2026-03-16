@@ -32,7 +32,7 @@ function addStudentRow() {
   row.innerHTML = `
     <input class="cert-input" type="text" placeholder="Full name" />
     <input class="cert-input" type="email" placeholder="email@example.com" />
-    <button class="cert-remove-btn" onclick="removeStudentRow(this)" title="Remove"><i data-lucide="x"></i></button>`;
+    <button class="cert-remove-btn" onclick="removeStudentRow(this)" title="Remove row"><i data-lucide="trash-2"></i></button>`;
   
   list.appendChild(row);
   if (window.lucide) lucide.createIcons();
@@ -66,8 +66,9 @@ async function issueCertificates() {
   }
 
   btn.disabled = true;
-  const originalText = btn.textContent;
-  btn.textContent = 'Issuing...';
+  const originalHTML = btn.innerHTML;
+  btn.innerHTML = '<i data-lucide="loader"></i> Issuing...';
+  if (window.lucide) lucide.createIcons();
   if (result) {
     result.className = 'cert-result';
     result.style.display = 'none';
@@ -99,11 +100,12 @@ async function issueCertificates() {
   }
 
   btn.disabled = false;
-  btn.textContent = originalText;
+  btn.innerHTML = originalHTML;
+  if (window.lucide) lucide.createIcons();
 
   let msg = '';
-  if (issued.length) msg += '✦ Certificate' + (issued.length > 1 ? 's' : '') + ' sent to: ' + issued.join(', ') + '. ';
-  if (failed.length) msg += '⚠ Failed: ' + failed.join(', ') + '.';
+  if (issued.length) msg += 'Sent to: ' + issued.join(', ') + '. ';
+  if (failed.length) msg += 'Failed: ' + failed.join(', ') + '.';
   
   showCertResult(msg.trim(), failed.length && !issued.length ? 'error' : 'success');
 }

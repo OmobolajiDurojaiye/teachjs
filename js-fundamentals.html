@@ -205,7 +205,11 @@
     <div class="logo-text">TeachJS Platform</div>
     <div class="logo-sub">Teacher's Guide</div>
   </div>
-  
+
+  <a class="back-btn" href="index.html">
+    <i data-lucide="arrow-left"></i> Back to Home
+  </a>
+
   <div class="nav-section-label">Basics</div>
   <a class="nav-item active" href="#s0"><span class="nav-num">00</span> How To Use</a>
   <a class="nav-item" href="#s1"><span class="nav-num">01</span> JS Basics</a>
@@ -229,7 +233,7 @@
   <header class="hero">
     <div class="hero-tag"><i data-lucide="zap"></i> 3-hour session</div>
     <h1>Teaching <span>JavaScript</span> From Scratch</h1>
-    <p>A complete teacher's guide for 1-on-1 sessions. Use VS Code + Chrome Console. Teach the concept, show the code, then let her try.</p>
+    <p>A complete teacher's guide for 1-on-1 sessions. Use VS Code + Chrome Console. Teach the concept, show the code, then let your student try.</p>
     <div class="hero-meta">
       <div class="hero-meta-item"><span class="dot"></span> 8 Topics</div>
       <div class="hero-meta-item"><span class="dot" style="background:var(--accent3)"></span> 70+ Exercises</div>
@@ -250,16 +254,16 @@
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 You are the teacher.</strong> Lead each section. Explain the concept in your own words first — use the analogies here. Then type the code live in VS Code. Ask her to guess the output <em>before</em> you run it. That moment of prediction → verification is where learning really clicks.</span>
+        <span><strong>👨‍🏫 You are the teacher.</strong> Lead each section. Explain the concept in your own words first — use the analogies here. Then type the code live in VS Code. Ask your student to guess the output <em>before</em> you run it. That moment of prediction → verification is where learning really clicks.</span>
       </div>
 
       <div class="concept">
         <div class="concept-title">Session Flow — Do This For Every Section</div>
-        <p><strong>1.</strong> Explain the concept casually using the analogy provided. Don't just read — talk to her.<br>
-        <strong>2.</strong> Open VS Code, type the code example together. Let her watch.<br>
+        <p><strong>1.</strong> Explain the concept casually using the analogy provided. Don't just read — talk to your student.<br>
+        <strong>2.</strong> Open VS Code, type the code example together. Let them watch.<br>
         <strong>3.</strong> Run it in the console (F12). Ask: "what do you think this will print?"<br>
         <strong>4.</strong> Do the Easy exercises together, out loud.<br>
-        <strong>5.</strong> Medium exercises — she tries, you watch. Help only if she's stuck for 2+ minutes.<br>
+        <strong>5.</strong> Medium exercises — they try, you watch. Help only if they're stuck for 2+ minutes.<br>
         <strong>6.</strong> Hard exercises — team effort. Discuss, think together, build it.</p>
       </div>
 
@@ -289,7 +293,7 @@
 
       <div class="concept">
         <div class="concept-title">Difficulty Tags</div>
-        <p><span class="tag tag-easy">Easy</span> — Do together out loud &nbsp; <span class="tag tag-medium">Medium</span> — She tries solo &nbsp; <span class="tag tag-hard">Hard</span> — Team effort &nbsp; <span class="tag tag-extreme">Extreme</span> — Bonus / come back later</p>
+        <p><span class="tag tag-easy">Easy</span> — Do together out loud &nbsp; <span class="tag tag-medium">Medium</span> — Student tries solo &nbsp; <span class="tag tag-hard">Hard</span> — Team effort &nbsp; <span class="tag tag-extreme">Extreme</span> — Bonus / come back later</p>
       </div>
     </div>
 
@@ -355,7 +359,7 @@
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> Type the <code>alert()</code> first, save the file, refresh Chrome. Watch her reaction. Then comment out the alert and show <code>console.log()</code>. Say: "The console is a developer's secret window — users never see this, it's only for us." Then show <code>document.body.innerHTML</code> — it's always impressive when the whole page changes with one line.</span>
+        <span><strong>👨‍🏫 Teacher:</strong> Type the <code>alert()</code> first, save the file, refresh Chrome. Watch their reaction. Then comment out the alert and show <code>console.log()</code>. Say: "The console is a developer's secret window — users never see this, it's only for us." Then show <code>document.body.innerHTML</code> — it's always impressive when the whole page changes with one line.</span>
       </div>
 
       <div class="exercises">
@@ -508,7 +512,7 @@ console.log('This is fun!');</code></pre></div>
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> The float problem always gets a good reaction. Ask: "What do you think 0.1 + 0.2 is?" — she'll say 0.3. Run it and watch the surprise. Then explain the binary analogy: "It's like trying to write 1/3 as a decimal. You'd write 0.333... forever. Computers have the same problem with some decimals." Then show the cents fix — explain this is how Paystack, Flutterwave, and every payment company in the world actually handles money.</span>
+        <span><strong>👨‍🏫 Teacher:</strong> The float problem always gets a good reaction. Ask: "What do you think 0.1 + 0.2 is?" — they'll say 0.3. Run it and watch the surprise. Then explain the binary analogy: "It's like trying to write 1/3 as a decimal. You'd write 0.333... forever. Computers have the same problem with some decimals." Then show the cents fix — explain this is how Paystack, Flutterwave, and every payment company in the world actually handles money.</span>
       </div>
 
       <div class="exercises">
@@ -670,7 +674,7 @@ Line three`</span>);
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> Start by asking "what do you think <code>'5' + 3</code> gives?" She'll probably say 8. Run it — show it gives "53". Then show <code>'5' - 3</code> = 2. Explain: the <code>+</code> is doing double duty — it's both math addition AND text joining. When JS sees a string, it picks text-joining. But <code>-</code> only works for math, so JS is forced to convert '5' to a number. Then show interpolation and ask her which is cleaner — she'll pick backticks every time.</span>
+        <span><strong>👨‍🏫 Teacher:</strong> Start by asking "what do you think <code>'5' + 3</code> gives?" They'll probably say 8. Run it — show it gives "53". Then show <code>'5' - 3</code> = 2. Explain: the <code>+</code> is doing double duty — it's both math addition AND text joining. When JS sees a string, it picks text-joining. But <code>-</code> only works for math, so JS is forced to convert '5' to a number. Then show interpolation and ask your student which is cleaner — they'll pick backticks every time.</span>
       </div>
 
       <div class="exercises">
@@ -837,7 +841,7 @@ console.log('Ada'.length);        // 3
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> Show the error you get when trying to reassign a <code>const</code> — it's a great teaching moment. Then demonstrate shorthand operators with a live score counter: start at 0, use <code>score++</code> a few times, log it each time. Connect it to games ("this is literally how a game score works"). Naming: tell her the golden rule — names should describe what the variable contains. <code>x</code> is bad, <code>cartTotal</code> is good.</span>
+        <span><strong>👨‍🏫 Teacher:</strong> Show the error you get when trying to reassign a <code>const</code> — it's a great teaching moment. Then demonstrate shorthand operators with a live score counter: start at 0, use <code>score++</code> a few times, log it each time. Connect it to games ("this is literally how a game score works"). Naming: share the golden rule — names should describe what the variable contains. <code>x</code> is bad, <code>cartTotal</code> is good.</span>
       </div>
 
       <div class="exercises">
@@ -1354,7 +1358,7 @@ console.log(result); // 'hello'</code></pre></div>
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> Walk through each operator with real-world examples. For AND: "To open your bank account online, you need your password AND your OTP." For OR: "You can pay with your card OR cash." For NOT: "If <em>not</em> logged in, show the login page." Then ask her to predict the truth table before running it — this builds the mental model fast.</span>
+        <span><strong>👨‍🏫 Teacher:</strong> Walk through each operator with real-world examples. For AND: "To open your bank account online, you need your password AND your OTP." For OR: "You can pay with your card OR cash." For NOT: "If <em>not</em> logged in, show the login page." Then ask your student to predict the truth table before running it — this builds the mental model fast.</span>
       </div>
 
       <div class="exercises">
@@ -1458,7 +1462,7 @@ if (balance >= withdrawAmount && !isBlocked && !dailyLimitReached) {
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> This is the climax! Everything she's learned — variables, strings, numbers, booleans, if-statements, Math.random() — all comes together right here. Don't rush. Talk through the plan before writing any code. Ask her: "What steps do we need to build this game?" Make her think through it. Then build it step by step, testing each step as you go. The moment it works for the first time is the highlight of the session.</span>
+        <span><strong>👨‍🏫 Teacher:</strong> This is the climax! Everything your student has learned — variables, strings, numbers, booleans, if-statements, Math.random() — all comes together right here. Don't rush. Talk through the plan before writing any code. Ask them: "What steps do we need to build this game?" Make them think through it. Then build it step by step, testing each step as you go. The moment it works for the first time is the highlight of the session.</span>
       </div>
 
       <div class="analogy">
@@ -1539,7 +1543,7 @@ if (balance >= withdrawAmount && !isBlocked && !dailyLimitReached) {
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> Build this live, one step at a time. After Step 1 & 2, test it — refresh the page several times and confirm the computer picks different moves. After adding the buttons, click Rock a bunch of times and check all three outcomes appear. The full win condition logic is the trickiest part — walk her through reading it out loud: "Player is Rock AND computer is Scissors → player wins". When it works, let her play it for a minute. That's the reward for all the hard work today.</span>
+        <span><strong>👨‍🏫 Teacher:</strong> Build this live, one step at a time. After Step 1 & 2, test it — refresh the page several times and confirm the computer picks different moves. After adding the buttons, click Rock a bunch of times and check all three outcomes appear. The full win condition logic is the trickiest part — walk your student through reading it out loud: "Player is Rock AND computer is Scissors → player wins". When it works, let them play it for a minute. That's the reward for all the hard work today.</span>
       </div>
 
       <div class="exercises">
@@ -1647,7 +1651,7 @@ function playGame(playerMove) {
 
       <div class="teacher-note">
         <i data-lucide="user"></i>
-        <span><strong>👨‍🏫 Teacher:</strong> These are for early finishers or if you have time at the end. They're unguided — no hints, no solutions. The goal is for her to sit with a problem and figure it out. Encourage her to think out loud. Mistakes are good here. Just keep the energy up!</span>
+        <span><strong>👨‍🏫 Teacher:</strong> These are for early finishers or if you have time at the end. They're unguided — no hints, no solutions. The goal is for your student to sit with a problem and figure it out. Encourage them to think out loud. Mistakes are good here. Just keep the energy up!</span>
       </div>
 
       <div class="exercises">
@@ -1807,11 +1811,16 @@ function playGame(playerMove) {
 <div class="cert-overlay" id="certOverlay">
   <div class="cert-modal">
     <div class="cert-modal-header">
-      <div>
-        <div class="cert-modal-title"><i data-lucide="award"></i> Issue Certificates</div>
+      <div class="cert-modal-icon">
+        <i data-lucide="award"></i>
+      </div>
+      <div class="cert-modal-title-group">
+        <div class="cert-modal-title">Issue Certificates</div>
         <div class="cert-modal-sub">Certificates will be emailed immediately via ProofDeck.</div>
       </div>
-      <button class="cert-close-btn" onclick="closeCertModal()"><i data-lucide="x"></i></button>
+      <button class="cert-close-btn" onclick="closeCertModal()" title="Close">
+        <i data-lucide="x"></i>
+      </button>
     </div>
     <div class="cert-col-labels">
       <div class="cert-col-label">Student Name</div>
@@ -1822,11 +1831,17 @@ function playGame(playerMove) {
       <div class="cert-student-row">
         <input class="cert-input" type="text" placeholder="Full name" />
         <input class="cert-input" type="email" placeholder="email@example.com" />
-        <button class="cert-remove-btn" onclick="removeStudentRow(this)" title="Remove"><i data-lucide="x"></i></button>
+        <button class="cert-remove-btn" onclick="removeStudentRow(this)" title="Remove row">
+          <i data-lucide="trash-2"></i>
+        </button>
       </div>
     </div>
-    <button class="cert-add-btn" onclick="addStudentRow()">+ Add another student</button>
-    <button class="cert-submit-btn" id="certSubmitBtn" onclick="issueCertificates()">Issue Certificates</button>
+    <button class="cert-add-btn" onclick="addStudentRow()">
+      <i data-lucide="plus"></i> Add another student
+    </button>
+    <button class="cert-submit-btn" id="certSubmitBtn" onclick="issueCertificates()">
+      <i data-lucide="send"></i> Issue Certificates
+    </button>
     <div class="cert-result" id="certResult"></div>
   </div>
 </div>

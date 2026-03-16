@@ -24,6 +24,13 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html { scroll-behavior: smooth; }
+
+/* ── SCROLLBAR ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
 body {
   font-family: 'DM Sans', sans-serif;
   background: var(--bg);
@@ -64,6 +71,33 @@ body {
   margin-top: 2px;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 12px 12px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: all 0.15s;
+}
+.back-btn:hover {
+  color: var(--text);
+  border-color: var(--border2);
+  background: rgba(255,255,255,0.04);
+}
+.back-btn svg {
+  width: 13px; height: 13px;
+  stroke: currentColor;
+  stroke-width: 2;
+  flex-shrink: 0;
 }
 
 .nav-section-label {
@@ -514,13 +548,25 @@ pre {
 /* MODALS */
 .cert-overlay {
   display: none; position: fixed; inset: 0; z-index: 300;
-  background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.75); backdrop-filter: blur(12px);
   align-items: center; justify-content: center; padding: 20px;
+  animation: overlayIn 0.2s ease-out;
 }
+@keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
 .cert-overlay.open { display: flex; }
 .cert-modal {
-  background: var(--bg2); border: 1px solid var(--border2); border-radius: 20px;
-  width: 100%; max-width: 580px; padding: 30px; box-shadow: 0 30px 70px rgba(0,0,0,0.7);
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-top: 3px solid var(--accent);
+  border-radius: 20px;
+  width: 100%; max-width: 560px;
+  padding: 32px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(124,111,247,0.08);
+  animation: modalIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.94) translateY(10px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0); }
 }
 
 /* SUCCESS BANNER */
@@ -538,72 +584,218 @@ pre {
 
 /* -- CERT MODAL REFINEMENTS ----------------------- */
 .cert-modal-header {
-  display: flex; align-items: flex-start; justify-content: space-between;
-  margin-bottom: 24px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  gap: 16px;
 }
+
+.cert-modal-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(94,231,176,0.1);
+  border: 1px solid rgba(94,231,176,0.2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.cert-modal-icon svg {
+  width: 22px; height: 22px;
+  stroke: var(--accent2); stroke-width: 1.75;
+}
+
+.cert-modal-title-group { flex: 1; }
+
 .cert-modal-title {
-  font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800;
-  color: var(--text); display: flex; align-items: center; gap: 10px;
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.4px;
+  margin-bottom: 4px;
 }
-.cert-modal-title i { color: var(--accent2); float: none; }
 .cert-modal-sub {
-  font-size: 13px; color: var(--muted); margin-top: 4px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
 }
+
+/* Close button — circular, icon only */
+.cert-close-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.cert-close-btn:hover {
+  background: rgba(240,96,128,0.15);
+  border-color: rgba(240,96,128,0.35);
+  color: var(--accent4);
+  transform: rotate(90deg);
+}
+.cert-close-btn svg {
+  width: 16px; height: 16px;
+  stroke: currentColor; stroke-width: 2.5;
+}
+
+/* Field labels */
 .cert-col-labels {
-  display: grid; grid-template-columns: 1fr 1fr 40px; gap: 12px;
-  padding: 0 4px 8px; border-bottom: 1px solid var(--border);
-  margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 44px;
+  gap: 10px;
+  padding: 0 2px 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
 }
 .cert-col-label {
-  font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted);
 }
+
+/* Scrollable student list */
 .cert-students-list {
-  max-height: 280px; overflow-y: auto; margin-bottom: 20px;
-  padding-right: 4px;
+  max-height: 240px;
+  overflow-y: auto;
+  margin-bottom: 12px;
+  padding-right: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
+.cert-students-list::-webkit-scrollbar { width: 4px; }
+.cert-students-list::-webkit-scrollbar-track { background: transparent; }
+.cert-students-list::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
 .cert-student-row {
-  display: grid; grid-template-columns: 1fr 1fr 40px; gap: 12px;
-  margin-bottom: 10px; animation: slideIn 0.2s ease-out;
+  display: grid;
+  grid-template-columns: 1fr 1fr 44px;
+  gap: 10px;
+  align-items: center;
+  animation: slideIn 0.18s ease-out;
 }
-@keyframes slideIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
+/* Inputs */
 .cert-input {
-  background: var(--bg3); border: 1px solid var(--border2);
-  border-radius: 8px; padding: 10px 14px; color: var(--text);
-  font-family: 'DM Sans', sans-serif; font-size: 14px; transition: all 0.2s;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
+.cert-input::placeholder { color: var(--muted); opacity: 0.6; }
 .cert-input:focus {
-  border-color: var(--accent); outline: none; background: var(--bg);
-  box-shadow: 0 0 0 3px rgba(124,111,247,0.15);
+  border-color: var(--accent);
+  outline: none;
+  background: rgba(124,111,247,0.04);
+  box-shadow: 0 0 0 3px rgba(124,111,247,0.12);
 }
 
+/* Remove (trash) button per row */
 .cert-remove-btn {
-  background: rgba(240,96,128,0.1); border: 1px solid rgba(240,96,128,0.2);
-  color: var(--accent4); border-radius: 8px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: rgba(240,96,128,0.08);
+  border: 1px solid rgba(240,96,128,0.18);
+  color: var(--accent4);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.18s;
+  flex-shrink: 0;
 }
-.cert-remove-btn:hover { background: var(--accent4); color: #fff; }
+.cert-remove-btn:hover {
+  background: var(--accent4);
+  border-color: var(--accent4);
+  color: #fff;
+  transform: scale(1.08);
+}
+.cert-remove-btn svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.5; }
 
+/* Add student button */
 .cert-add-btn {
-  width: 100%; padding: 10px; background: transparent;
-  border: 1px dashed var(--border2); color: var(--muted);
-  border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 500;
-  margin-bottom: 24px; transition: all 0.2s;
+  width: 100%;
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px dashed var(--border2);
+  color: var(--muted);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  margin-bottom: 20px;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
 }
-.cert-add-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(124,111,247,0.05); }
+.cert-add-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(124,111,247,0.05);
+}
+.cert-add-btn svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; }
 
+/* Submit button */
 .cert-submit-btn {
-  width: 100%; padding: 14px; background: var(--accent);
-  color: #fff; border: none; border-radius: 12px;
-  font-size: 15px; font-weight: 700; cursor: pointer;
-  transition: all 0.2s; box-shadow: 0 10px 25px rgba(124,111,247,0.3);
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--accent) 0%, #6257e3 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s;
+  box-shadow: 0 8px 24px rgba(124,111,247,0.35);
+  letter-spacing: -0.2px;
 }
-.cert-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(124,111,247,0.4); }
-.cert-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+.cert-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(124,111,247,0.45);
+}
+.cert-submit-btn:active { transform: translateY(0); }
+.cert-submit-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
+.cert-submit-btn svg { width: 16px; height: 16px; stroke: #fff; stroke-width: 2; }
 
+/* Result banner */
 .cert-result {
-  margin-top: 20px; padding: 12px 16px; border-radius: 10px;
-  font-size: 13px; display: none;
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  display: none;
+  line-height: 1.5;
 }
-.cert-result.success { display: block; background: rgba(94,231,176,0.1); color: var(--accent2); border: 1px solid rgba(94,231,176,0.2); }
-.cert-result.error { display: block; background: rgba(240,96,128,0.1); color: var(--accent4); border: 1px solid rgba(240,96,128,0.2); }
+.cert-result.success {
+  display: block;
+  background: rgba(94,231,176,0.08);
+  color: var(--accent2);
+  border: 1px solid rgba(94,231,176,0.2);
+}
+.cert-result.error {
+  display: block;
+  background: rgba(240,96,128,0.08);
+  color: var(--accent4);
+  border: 1px solid rgba(240,96,128,0.2);
+}
