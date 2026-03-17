@@ -1449,6 +1449,42 @@ if (balance >= withdrawAmount && !isBlocked && !dailyLimitReached) {
   console.log('Transaction declined ✗');
 }</code></pre></div>
         </div>
+
+        <div class="exercise">
+          <div class="exercise-num">07 · 07</div>
+          <div class="exercise-text"><strong>Amusement Park Discount:</strong> Use logical operators to determine if someone qualifies for a discount based on age and holiday status. Logic: Children (≤ 6) or Seniors (≥ 65) get a discount, but only if it is NOT a holiday. Use <code>age</code> and <code>isHoliday</code>.</div>
+          <span class="tag tag-hard">Hard</span>
+          <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
+          <div class="hint">Use brackets because <code>&&</code> has higher priority than <code>||</code>. For example: <code>(condition1 || condition2) && !condition3</code></div>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>let age = 25; // Change this to test (e.g., 5, 70, 25)
+const isHoliday = true; // Change to false to test
+
+// Note: We use brackets because && has higher priority than ||
+if ((age <= 6 || age >= 65) && !isHoliday) {
+    console.log('Discount');
+} else {
+    console.log('No discount');
+}</code></pre></div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-num">07 · 08</div>
+          <div class="exercise-text"><strong>Coin-Flip Game:</strong> Use <code>Math.random()</code> and Ternary Operators to create a simple guessing game. Logic: Generate a random number. If &lt; 0.5, it's "heads"; otherwise, it's "tails". Compare this to a user's guess (e.g., 'heads'). Log "You win!" or "You lose!".</div>
+          <span class="tag tag-hard">Hard</span>
+          <br><button class="hint-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show hint</button>
+          <div class="hint">Compare <code>Math.random()</code> to 0.5 first to get the <code>result</code>, then compare <code>guess === result</code>.</div>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>// Generate result
+const randomNumber = Math.random();
+// Using Ternary Operator
+const result = randomNumber < 0.5 ? 'heads' : 'tails';
+
+const guess = 'heads'; // The user's guess
+
+// Check if user won
+console.log(guess === result ? 'You win!' : 'You lose!');</code></pre></div>
+        </div>
       </div>
     </div>
 
@@ -1720,15 +1756,34 @@ function playGame(playerMove) {
       </div>
 
       <div class="code-block">
-        <div class="code-header"><span class="code-label">Cart Starter</span><span class="code-lang">HTML</span></div>
-        <pre>&lt;script&gt;let quantity = 0;&lt;/script&gt;
+        <div class="code-header"><span class="code-label">Cart Starter (with Guards)</span><span class="code-lang">HTML</span></div>
+        <pre>&lt;script&gt;let cartQuantity = 0;&lt;/script&gt;
 
-&lt;button onclick="quantity++; console.log(quantity)"&gt;+1&lt;/button&gt;
-&lt;button onclick="quantity--; console.log(quantity)"&gt;-1&lt;/button&gt;
-&lt;button onclick="quantity = 0; console.log('Cart cleared')"&gt;Reset&lt;/button&gt;
-&lt;button onclick="alert(quantity === 0 ? 'Cart is empty' : quantity + ' items in cart')"&gt;
-  View Cart
-&lt;/button&gt;</pre>
+&lt;button onclick="console.log(`Cart Quantity: ${cartQuantity}`);"&gt;Show Quantity&lt;/button&gt;
+
+&lt;button onclick="
+    if (cartQuantity + 1 > 10) {
+        alert('The cart is full');
+    } else {
+        cartQuantity++;
+        console.log(`Cart Quantity: ${cartQuantity}`);
+    }
+"&gt;Add to cart&lt;/button&gt;
+
+&lt;button onclick="
+    if (cartQuantity - 1 < 0) {
+        alert('Not enough items in the cart');
+    } else {
+        cartQuantity--;
+        console.log(`Cart Quantity: ${cartQuantity}`);
+    }
+"&gt;Remove from cart&lt;/button&gt;
+
+&lt;button onclick="
+    cartQuantity = 0;
+    console.log('Cart was reset.');
+    console.log(`Cart Quantity: ${cartQuantity}`);
+"&gt;Reset Cart&lt;/button&gt;</pre>
       </div>
 
       <div class="exercises">
@@ -1736,39 +1791,73 @@ function playGame(playerMove) {
 
         <div class="exercise">
           <div class="exercise-num">09 · 01</div>
-          <div class="exercise-text"><strong>The Increment Challenge:</strong> Create the starter cart above. Make sure +1, -1, Reset, and View Cart all work. Check the console after each click.</div>
+          <div class="exercise-text"><strong>The Cart Setup:</strong> Build the basic cart system from the starter above. Add the buttons for "Show Quantity", "Add to cart", "Remove from cart", and "Reset Cart".</div>
           <span class="tag tag-hard">Boss</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>&lt;script&gt;let q = 0;&lt;/script&gt;
-&lt;button onclick="q++; console.log('Cart:', q)"&gt;+1&lt;/button&gt;
-&lt;button onclick="q--; console.log('Cart:', q)"&gt;-1&lt;/button&gt;
-&lt;button onclick="q = 0; console.log('Cart cleared')"&gt;Reset&lt;/button&gt;
-&lt;button onclick="if(q === 0) alert('Cart is empty'); else alert(q + ' items')"&gt;View Cart&lt;/button&gt;</code></pre></div>
+          <div class="solution"><pre><code>&lt;script&gt;let cartQuantity = 0;&lt;/script&gt;
+&lt;button onclick="console.log(`Cart Quantity: ${cartQuantity}`);"&gt;Show Quantity&lt;/button&gt;
+&lt;button onclick="cartQuantity++; console.log(cartQuantity);"&gt;Add to cart&lt;/button&gt;
+&lt;button onclick="cartQuantity--; console.log(cartQuantity);"&gt;Remove from cart&lt;/button&gt;
+&lt;button onclick="cartQuantity = 0; console.log('Cart was reset.');"&gt;Reset Cart&lt;/button&gt;</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">09 · 02</div>
-          <div class="exercise-text"><strong>The Maximum Limit:</strong> If the user clicks +1 and quantity is already 10, show an alert "Maximum 10 items reached!" instead of adding.</div>
+          <div class="exercise-text"><strong>The Multi-Add Buttons (+2, +3):</strong> Add buttons that add 2 or 3 items to the cart at once. They should also respect the maximum limit of 10 items.</div>
           <span class="tag tag-hard">Boss</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
-          <div class="solution"><pre><code>&lt;button onclick="if(q >= 10) { alert('Max 10 items!'); } else { q++; }"&gt;+1&lt;/button&gt;</code></pre></div>
+          <div class="solution"><pre><code>&lt;button onclick="
+    if (cartQuantity + 2 > 10) {
+        alert('The cart is full');
+    } else {
+        cartQuantity += 2;
+        console.log(`Cart Quantity: ${cartQuantity}`);
+    }
+"&gt;+2&lt;/button&gt;
+
+&lt;button onclick="
+    if (cartQuantity + 3 > 10) {
+        alert('The cart is full');
+    } else {
+        cartQuantity += 3;
+        console.log(`Cart Quantity: ${cartQuantity}`);
+    }
+"&gt;+3&lt;/button&gt;</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">09 · 03</div>
-          <div class="exercise-text"><strong>The Minimum Limit:</strong> If the user clicks -1 and quantity is already 0, show "Cart is already empty!" instead of going negative.</div>
+          <div class="exercise-text"><strong>The Multi-Remove & Minimum (-1, -2):</strong> Add a -2 button and ensure all removal buttons (-1, -2) show "Not enough items in the cart" if the result would be less than 0.</div>
           <span class="tag tag-hard">Boss</span>
+          <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
+          <div class="solution"><pre><code>&lt;button onclick="
+    if (cartQuantity - 1 < 0) {
+        alert('Not enough items in the cart');
+    } else {
+        cartQuantity--;
+        console.log(`Cart Quantity: ${cartQuantity}`);
+    }
+"&gt;Remove from cart&lt;/button&gt;
+
+&lt;button onclick="
+    if (cartQuantity - 2 < 0) {
+        alert('Not enough items in the cart');
+    } else {
+        cartQuantity -= 2;
+        console.log(`Cart Quantity: ${cartQuantity}`);
+    }
+"&gt;-2&lt;/button&gt;</code></pre></div>
         </div>
 
         <div class="exercise">
           <div class="exercise-num">09 · 04</div>
-          <div class="exercise-text"><strong>The Price Display:</strong> Each item costs ₦1,500. Add a "Show Total" button that displays: <code>"5 items × ₦1,500 = ₦7,500"</code></div>
+          <div class="exercise-text"><strong>The Price Display:</strong> Each item costs ₦1,500. Add a "Show Total" button that displays: <code>"5 items × ₦1,500 = ₦7,500"</code>. Use <code>cartQuantity</code>.</div>
           <span class="tag tag-extreme">Boss</span>
           <br><button class="solution-toggle" onclick="toggleVisibility(this.nextElementSibling)">Show solution</button>
           <div class="solution"><pre><code>&lt;button onclick="
   const price = 1500;
-  const total = q * price;
-  alert(`${q} items × ₦${price} = ₦${total}`);
+  const total = cartQuantity * price;
+  alert(`${cartQuantity} items × ₦${price} = ₦${total}`);
 "&gt;Show Total&lt;/button&gt;</code></pre></div>
         </div>
       </div>
